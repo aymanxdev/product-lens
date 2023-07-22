@@ -1,0 +1,31 @@
+# Ignore node modules
+backend/node_modules
+client/node_modules
+
+# Ignore environment variables
+backend/.env
+client/.env
+
+# Ignore build / dist output
+backend/dist
+client/dist
+
+# Ignore logs
+*.log
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore Editor settings
+.vscode
+.idea
+
+# Ignore npm debug files
+npm-debug.log
+
+# Ignore optional npm cache
+.npm
+
+# Ignore optional eslint cache
+.eslintcache
