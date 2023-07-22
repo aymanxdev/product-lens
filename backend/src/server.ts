@@ -1,17 +1,38 @@
-import { Request, Response } from 'express';
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import userRoutes from "./routes/userRoutes";
 
-const express = require('express');
+// Environment variables
+if (process.env.NODE_ENV === 'production') {
+    dotenv.config({ path: '.env.production' });
+  } else {
+    dotenv.config({ path: '.env.development' });
+  }
+
+// Connect to MongoDB
+const establishMongoConnection = async () => {
+    try {
+        if (!process.env.MONGODB_URI) {
+            throw new Error("MONGODB_URI must be defined");
+        }
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("Error connecting to MongoDB: ", error);
+        process.exit(1);
+    }
+}
+
+establishMongoConnection();
 
 const app = express();
-
+app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!');
-    }
-);
+
+app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-    }
-);
+  console.log(`Server listening on port ${PORT}`);
+});
