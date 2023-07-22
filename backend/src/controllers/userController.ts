@@ -2,9 +2,7 @@ import User from "../models/userModel";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 
-dotenv.config();
 // Handle user registration
 export const registerUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
@@ -15,7 +13,7 @@ export const registerUser = async (req: Request, res: Response) => {
     await newUser.save();
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Error registering user" });
+    res.status(500).json({ error: "Error registering user" , errorMessage: error});
   }
 };
 
@@ -37,7 +35,7 @@ export const loginUser = async (req: Request, res: Response) => {
       throw new Error("JWT_SECRET must be defined to sign token");
     }
 
-    const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user[0]._id, name: user[0].name }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
     res.status(200).json({ token });
@@ -45,3 +43,14 @@ export const loginUser = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error logging in user" });
   }
 };
+
+// Handle getting all users
+export const getAllUsers = async (req: Request,res: Response) => {
+    try {
+        const users = await User.find({}).select("-password");
+        console.log(users);
+        res.status(200).json({ users });
+    } catch (error) {
+        res.status(500).json({ error: "Error getting users", errorMessage: error });
+    }
+    }
