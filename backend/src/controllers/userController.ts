@@ -99,7 +99,28 @@ const generateAccessToken = (user: IUser) => {
 }
 
 // Handle user logout
+export const logoutUser = async (req: Request, res: Response) => {
+  const { _id } = req.body;
 
+  try {
+    const user = await User.findById(_id);
+
+    if (!user) {
+      return res.status(401).json({ error: "Logout: User does not exist" });
+    }
+
+    //remove refresh token from user
+    user.refreshToken = "";
+    await user.save();
+
+    //remove access token from cookies
+    res.clearCookie("access_token");
+    res.status(200).json({ message: "Logged out successfully" });
+    
+  } catch (error) {
+    res.status(500).json({ error: "Error logging out user", errorMessage: error });
+  }
+}
 
 // Handle getting all users
 export const getAllUsers = async (req: Request,res: Response) => {

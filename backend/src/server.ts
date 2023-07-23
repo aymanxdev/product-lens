@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes";
 
 // Environment variables
@@ -28,10 +29,11 @@ establishMongoConnection();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 const PORT = process.env.PORT || 3000;
 
 // Routes
-app.use("/accounts/users", userRoutes);
+app.use("/accounts", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

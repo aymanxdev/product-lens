@@ -14,12 +14,8 @@ export const isAuthenticated = async (
   next: NextFunction
 ) => {
     
-  if (!req.headers.authorization) {
-    return res.status(401).json({ error: "No token, authorization denied" });
-  }
+  const token = req.cookies.access_token;
 
-  const token = req.cookies.access_token || req.headers.authorization.split(" ")[1];
-  
   if (!token) {
     return res.status(401).json({ error: "No token, authorization denied" });
   }
