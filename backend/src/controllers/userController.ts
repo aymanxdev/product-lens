@@ -52,7 +52,6 @@ export const loginUser = async (req: Request, res: Response) => {
 export const getAllUsers = async (req: Request,res: Response) => {
     try {
         const users = await User.find({}).select("-password");
-        console.log(users);
         res.status(200).json({ users });
     } catch (error) {
         res.status(500).json({ error: "Error getting users", errorMessage: error });

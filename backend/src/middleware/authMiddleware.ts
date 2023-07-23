@@ -7,11 +7,6 @@ interface IUserRequest extends Request {
   user?: IUserPayload;
 }
 
-const isUserPayloadGuard = (object: any): object is IUserPayload => {
-    return 'name' in object && 'email' in object && 'role' in object && '_id' in object;
-
-};
-
 // Middleware to check if user is authenticated
 export const isAuthenticated = async (
   req: IUserRequest,
@@ -33,11 +28,6 @@ export const isAuthenticated = async (
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET) as IUser;
-
-    // if (!isUserPayloadGuard(decoded)) {
-    //     console.log("Invalid token payload");
-    //   throw new Error("Invalid token payload");
-    // }
     req.user = decoded;
     next();
   } catch (error) {
@@ -46,26 +36,26 @@ export const isAuthenticated = async (
 };
 
 // Middleware to check if user is admin
-export const isAdmin = async (
-  req: IUserRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    if (!req.user) {
-      throw new Error("Failed to get user from request to check Admin role");
-    }
-    const user = await User.findById(req.user._id);
-    if (user && user.role === "admin") {
-      next();
-    } else {
+export const isRole = (userRole: string) => {
+  return async (req: IUserRequest, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user) {
+        throw new Error(
+          `Failed to get user from request to check ${userRole} role`
+        );
+      }
+      const user = await User.findById(req.user._id);
+      if (user && user.role === userRole) {
+        next();
+      } else {
+        res
+          .status(401)
+          .json({ error: "Unauthorized access: User is not an admin" });
+      }
+    } catch (error) {
       res
-        .status(401)
-        .json({ error: "Unauthorized access: User is not an admin" });
+        .status(500)
+        .json({ error: "Error checking user role", errorMessage: error });
     }
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Error checking user role", errorMessage: error });
-  }
+  };
 };
