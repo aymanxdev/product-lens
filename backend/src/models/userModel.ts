@@ -1,17 +1,36 @@
 import mongoose from "mongoose";
 
-interface IUser {
-    name: string;
-    email: string;
-    password: string;
+enum Role {
+  admin = "admin",
+  user = "user",
+  guest = "guest",
+  moderator = "moderator",
+  editor = "editor",
+  manager = "manager",
+}
+export interface IUser {
+  _id?: string;
+  name: string;
+  email: string;
+  password: string;
+  refreshToken: string;
+  date?: Date;
+  role?: Role;
 }
 
 const userSchema = new mongoose.Schema<IUser>({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: {type: String, required: true}
-})
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: {
+    type: String,
+    enum: [Role],
+    default: "user",
+  },
+  refreshToken: { type: String },
+  date: { type: Date, default: Date.now },
+});
 
-const User = mongoose.model<IUser>("User", userSchema)
+const User = mongoose.model<IUser>("User", userSchema);
 
-export default User
+export default User;
