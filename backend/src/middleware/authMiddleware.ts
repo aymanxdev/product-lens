@@ -13,21 +13,23 @@ export const isAuthenticated = async (
   res: Response,
   next: NextFunction
 ) => {
+    
   if (!req.headers.authorization) {
     return res.status(401).json({ error: "No token, authorization denied" });
   }
-  const token = req.headers.authorization.split(" ")[1];
 
+  const token = req.cookies.access_token || req.headers.authorization.split(" ")[1];
+  
   if (!token) {
     return res.status(401).json({ error: "No token, authorization denied" });
   }
 
   try {
-    if (!process.env.JWT_SECRET) {
+    if (!process.env.ACCESS_TOKEN_SECRET) {
       throw new Error("JWT_SECRET must be defined to verify token");
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET) as IUser;
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET) as IUser;
     req.user = decoded;
     next();
   } catch (error) {

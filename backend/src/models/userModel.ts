@@ -13,6 +13,7 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
+  refreshToken?: string;
   role?: Role;
 }
 
@@ -25,6 +26,7 @@ const userSchema = new mongoose.Schema<IUser>({
     enum: [Role],
     default: "user",
   },
+  refreshToken: { type: String, default: "" },
 });
 
 const User = mongoose.model<IUser>("User", userSchema);
