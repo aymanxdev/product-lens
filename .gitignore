@@ -6,6 +6,7 @@ client/node_modules
 backend/.env
 backend/.env.development
 backend/.env.production
+backend/.env.test
 
 client/.env
 client/.env.development

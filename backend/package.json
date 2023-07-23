@@ -8,7 +8,7 @@
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
     "build": "tsc",
     "serve": "node dist/server.js",
-    "test": "jest --watch"
+    "test": "NODE ENV=test jest --watchAll --runInBand"
   },
   "jest": {
     "testMatch": ["**/*.test.ts"]
