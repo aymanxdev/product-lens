@@ -8,7 +8,8 @@ enum Role {
   editor = "editor",
   manager = "manager",
 }
-interface IUser {
+export interface IUser {
+  _id?: string;
   name: string;
   email: string;
   password: string;
@@ -21,7 +22,7 @@ const userSchema = new mongoose.Schema<IUser>({
   password: { type: String, required: true },
   role: {
     type: String,
-    enum: ["admin", "user", "guest", "moderator", "editor", "manager"],
+    enum: [Role],
     default: "user",
   },
 });
