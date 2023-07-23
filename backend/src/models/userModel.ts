@@ -14,6 +14,7 @@ export interface IUser {
   email: string;
   password: string;
   refreshToken: string;
+  date?: Date;
   role?: Role;
 }
 
@@ -27,6 +28,7 @@ const userSchema = new mongoose.Schema<IUser>({
     default: "user",
   },
   refreshToken: { type: String },
+  date: { type: Date, default: Date.now },
 });
 
 const User = mongoose.model<IUser>("User", userSchema);
