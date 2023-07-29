@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { IUserRequest } from "../types";
+import { Types } from "mongoose";
 
 // Handle user registration
 export const registerUser = async (req: Request, res: Response) => {
@@ -186,3 +187,31 @@ export const sendFriendInvitation = async (
       .json({ error: "Error sending friend invitation", errorMessage: error });
   }
 };
+
+export const acceptFriendInvitation = async (req: IUserRequest, res: Response) => {
+
+  try {
+    const user = await User.findById(req.user._id)
+    const invitingUser = await User.findById(req.params.id)
+
+    if (user && invitingUser) {
+      // Remove invitation from user
+      user.invitations =  user.invitations.filter((invitationId: Types.ObjectId) => !invitationId.equals(invitingUser._id))
+
+      // Add to friends
+      user.friends.push(invitingUser._id)
+      invitingUser.friends.push(user._id)
+
+      await user.save()
+      await invitingUser.save()
+
+      res.status(200).json({ message: "Friend invitation accepted" });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+    
+  } catch (error) {
+    res.status(500).json({ error: "Error accepting friend invitation", errorMessage: error });
+
+  }
+}
