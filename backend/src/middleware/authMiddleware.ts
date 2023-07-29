@@ -1,11 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
-import User, { IUser } from "../models/userModel";
-
-type IUserPayload = Omit<IUser, "password">;
-interface IUserRequest extends Request {
-  user?: IUserPayload;
-}
+import jwt from "jsonwebtoken";import User, { IUser } from "../models/userModel";
+import { IUserRequest } from "../types";
 
 // Middleware to check if user is authenticated
 export const isAuthenticated = async (
@@ -26,7 +21,7 @@ export const isAuthenticated = async (
     }
 
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET) as IUser;
-    req.user = decoded;
+    req.user = await User.findById(decoded._id).select('-password')
     next();
   } catch (error) {
     res.status(401).json({ error: "Invalid token", errorMessage: error });

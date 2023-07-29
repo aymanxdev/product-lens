@@ -1,4 +1,5 @@
 import mongoose, {Document, Schema} from "mongoose";
+import { IUser } from "./userModel";
 
 export interface IFeedback extends Document {
     title: string;
@@ -7,6 +8,8 @@ export interface IFeedback extends Document {
     user: Schema.Types.ObjectId;
     tags: string[];
     createdAt: Date;
+    modifiedAt: Date
+    userId: IUser["_id"];
 }
 
 const feedbackSchema = new mongoose.Schema<IFeedback>({
@@ -16,6 +19,10 @@ const feedbackSchema = new mongoose.Schema<IFeedback>({
     user: {type: Schema.Types.ObjectId, ref: "User", required: true},
     tags: [{type: String}],
     createdAt: {type: Date, default: Date.now},
+    modifiedAt: {type: Date},
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-export default mongoose.model<IFeedback>("Feedback", feedbackSchema);
+const Feedback = mongoose.model<IFeedback>("Feedback", feedbackSchema);
+
+export default Feedback
