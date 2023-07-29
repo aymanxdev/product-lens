@@ -188,30 +188,65 @@ export const sendFriendInvitation = async (
   }
 };
 
-export const acceptFriendInvitation = async (req: IUserRequest, res: Response) => {
-
+export const acceptFriendInvitation = async (
+  req: IUserRequest,
+  res: Response
+) => {
   try {
-    const user = await User.findById(req.user._id)
-    const invitingUser = await User.findById(req.params.id)
+    const user = await User.findById(req.user._id);
+    const invitingUser = await User.findById(req.params.id);
 
     if (user && invitingUser) {
       // Remove invitation from user
-      user.invitations =  user.invitations.filter((invitationId: Types.ObjectId) => !invitationId.equals(invitingUser._id))
+      user.invitations = user.invitations.filter(
+        (invitationId: Types.ObjectId) => !invitationId.equals(invitingUser._id)
+      );
 
       // Add to friends
-      user.friends.push(invitingUser._id)
-      invitingUser.friends.push(user._id)
+      user.friends.push(invitingUser._id);
+      invitingUser.friends.push(user._id);
 
-      await user.save()
-      await invitingUser.save()
+      await user.save();
+      await invitingUser.save();
 
       res.status(200).json({ message: "Friend invitation accepted" });
     } else {
       res.status(404).json({ error: "User not found" });
     }
-    
   } catch (error) {
-    res.status(500).json({ error: "Error accepting friend invitation", errorMessage: error });
-
+    res.status(500).json({
+      error: "Error accepting friend invitation",
+      errorMessage: error,
+    });
   }
-}
+};
+
+export const rejectFriendInvitation = async (
+  req: IUserRequest,
+  res: Response
+) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const invitingUser = await User.findById(req.params.id);
+
+    if (user && invitingUser) {
+      //Remove user invitation
+
+      user.invitations = user.invitations.filter(
+        (invitationId: Types.ObjectId) => !invitationId.equals(invitingUser._id)
+      );
+
+      await user.save();
+      res.status(200).json({ message: "Friend invitation declined" });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        error: "Error rejecting friend invitation",
+        errorMessage: error,
+      });
+  }
+};
