@@ -14,7 +14,8 @@ export interface IUser extends Document {
   password: string;
   refreshToken: string;
   createdAt: Date;
-  friends: IUser['_id'][];
+  friends: IUser["_id"][];
+  invitations: IUser["_id"][];
   role?: Role;
 }
 
@@ -29,8 +30,8 @@ const userSchema = new Schema<IUser>({
   },
   refreshToken: { type: String },
   createdAt: { type: Date, default: Date.now },
-  friends: [{type: Schema.Types.ObjectId, ref: 'User'}]
-
+  friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  invitations: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
 const User = mongoose.model<IUser>("User", userSchema);
