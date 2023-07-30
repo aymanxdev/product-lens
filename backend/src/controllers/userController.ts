@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { IUserRequest } from "../types";
 import { Types } from "mongoose";
+import { deleteItemFrom } from "../utils";
 
 // Handle user registration
 export const registerUser = async (req: Request, res: Response) => {
@@ -242,11 +243,35 @@ export const rejectFriendInvitation = async (
       res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
+    res.status(500).json({
+      error: "Error rejecting friend invitation",
+      errorMessage: error,
+    });
+  }
+};
+
+export const deleteFriend = async (req: IUserRequest, res: Response) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const friendOfUser = await User.findById(req.params.id);
+
+    if (user && friendOfUser) {
+      // user.friends = user.friends.filter((friendId: Types.ObjectId) => !friendId.equals(friendOfUser._id))
+      // friendOfUser.friends = friendOfUser.friends.filter((friendId) => !friendId.equals(user._id))
+
+      user.friends = deleteItemFrom(user.friends, friendOfUser._id);
+      friendOfUser.friends = deleteItemFrom(friendOfUser.friends, user._id);
+
+      await user.save();
+      await friendOfUser.save();
+
+      res.status(200).json({ message: "Friend deleted" });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
     res
       .status(500)
-      .json({
-        error: "Error rejecting friend invitation",
-        errorMessage: error,
-      });
+      .json({ error: "Error deleting friend", errorMessage: error });
   }
 };
