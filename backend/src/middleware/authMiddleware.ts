@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";import User, { IUser } from "../models/userModel";
+import jwt from "jsonwebtoken";
+import User, { IUser } from "../models/userModel";
 import { IUserRequest } from "../types";
 
 // Middleware to check if user is authenticated
@@ -8,7 +9,11 @@ export const isAuthenticated = async (
   res: Response,
   next: NextFunction
 ) => {
-    
+  // Use the type guard to narrow down the type of req
+  if (!isIUserRequest(req)) {
+    return res.status(401).json({ error: "Request is not IUserRequest" });
+  }
+
   const token = req.cookies.access_token;
 
   if (!token) {
@@ -21,7 +26,7 @@ export const isAuthenticated = async (
     }
 
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET) as IUser;
-    req.user = await User.findById(decoded._id).select('-password') 
+    req.user = await User.findById(decoded._id).select("-password");
     next();
   } catch (error) {
     res.status(401).json({ error: "Invalid token", errorMessage: error });
@@ -32,6 +37,10 @@ export const isAuthenticated = async (
 export const isRole = (userRole: string) => {
   return async (req: IUserRequest, res: Response, next: NextFunction) => {
     try {
+        // Use the type guard to narrow down the type of req
+  if (!isIUserRequest(req)) {
+    return res.status(401).json({ error: "Request is not IUserRequest" });
+  }
       if (!req.user) {
         throw new Error(
           `Failed to get user from request to check ${userRole} role`
@@ -52,3 +61,8 @@ export const isRole = (userRole: string) => {
     }
   };
 };
+
+// This function is a type guard which checks if a request is an IUserRequest.
+function isIUserRequest(req: Request): req is IUserRequest {
+  return (req as IUserRequest).user !== undefined;
+}
