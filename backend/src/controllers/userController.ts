@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { IUserRequest } from "../types";
 import { Types } from "mongoose";
 import { deleteItemFrom } from "../utils";
+import { withUserInRequest } from "../helpers/request";
 
 // Handle user registration
 export const registerUser = async (req: Request, res: Response) => {
@@ -169,10 +170,8 @@ export const searchUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const sendFriendInvitation = async (
-  req: IUserRequest,
-  res: Response
-) => {
+const sendFriendInvitationHandler = async (req: IUserRequest, res: Response) => {
+
   try {
     const invitedUser = await User.findById(req.params.id);
     if (invitedUser) {
@@ -187,12 +186,11 @@ export const sendFriendInvitation = async (
       .status(500)
       .json({ error: "Error sending friend invitation", errorMessage: error });
   }
-};
+}
 
-export const acceptFriendInvitation = async (
-  req: IUserRequest,
-  res: Response
-) => {
+export const sendFriendInvitation = withUserInRequest(sendFriendInvitationHandler);
+
+const acceptFriendInvitationHandler = async (req: IUserRequest, res: Response) => {
   try {
     const user = await User.findById(req.user._id);
     const invitingUser = await User.findById(req.params.id);
@@ -220,12 +218,12 @@ export const acceptFriendInvitation = async (
       errorMessage: error,
     });
   }
-};
+}
 
-export const rejectFriendInvitation = async (
-  req: IUserRequest,
-  res: Response
-) => {
+export const acceptFriendInvitation = withUserInRequest(acceptFriendInvitationHandler);
+
+
+const rejectFriendInvitationHandler = async (req: IUserRequest, res: Response) => {
   try {
     const user = await User.findById(req.user._id);
     const invitingUser = await User.findById(req.params.id);
@@ -248,9 +246,11 @@ export const rejectFriendInvitation = async (
       errorMessage: error,
     });
   }
-};
+}
 
-export const deleteFriend = async (req: IUserRequest, res: Response) => {
+export const rejectFriendInvitation = withUserInRequest(rejectFriendInvitationHandler);
+
+const deleteFriendHandler = async (req: IUserRequest, res: Response) => {
   try {
     const user = await User.findById(req.user._id);
     const friendOfUser = await User.findById(req.params.id);
@@ -274,4 +274,6 @@ export const deleteFriend = async (req: IUserRequest, res: Response) => {
       .status(500)
       .json({ error: "Error deleting friend", errorMessage: error });
   }
-};
+}
+
+export const deleteFriend = withUserInRequest(deleteFriendHandler);
