@@ -188,8 +188,6 @@ const sendFriendInvitationHandler = async (req: IUserRequest, res: Response) => 
   }
 }
 
-export const sendFriendInvitation = withUserInRequest(sendFriendInvitationHandler);
-
 const acceptFriendInvitationHandler = async (req: IUserRequest, res: Response) => {
   try {
     const user = await User.findById(req.user._id);
@@ -220,9 +218,6 @@ const acceptFriendInvitationHandler = async (req: IUserRequest, res: Response) =
   }
 }
 
-export const acceptFriendInvitation = withUserInRequest(acceptFriendInvitationHandler);
-
-
 const rejectFriendInvitationHandler = async (req: IUserRequest, res: Response) => {
   try {
     const user = await User.findById(req.user._id);
@@ -248,7 +243,6 @@ const rejectFriendInvitationHandler = async (req: IUserRequest, res: Response) =
   }
 }
 
-export const rejectFriendInvitation = withUserInRequest(rejectFriendInvitationHandler);
 
 const deleteFriendHandler = async (req: IUserRequest, res: Response) => {
   try {
@@ -276,4 +270,7 @@ const deleteFriendHandler = async (req: IUserRequest, res: Response) => {
   }
 }
 
+export const sendFriendInvitation = withUserInRequest(sendFriendInvitationHandler);
+export const acceptFriendInvitation = withUserInRequest(acceptFriendInvitationHandler);
+export const rejectFriendInvitation = withUserInRequest(rejectFriendInvitationHandler);
 export const deleteFriend = withUserInRequest(deleteFriendHandler);
