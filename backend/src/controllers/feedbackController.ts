@@ -4,7 +4,7 @@ import Feedback, { IFeedback } from "../models/feedbackModel";
 import User from "../models/userModel";
 import {  withUserInRequest } from "../helpers/request";
 
-export const getUserFeedbacksHandler = async (
+const getUserFeedbacksHandler = async (
   req: IUserRequest,
   res: Response
 ): Promise<any> => {
@@ -28,7 +28,7 @@ export const getUserFeedbacksHandler = async (
   }
 };
 
-export const addFeedbackHandler = async (
+const addFeedbackHandler = async (
   req: IUserRequest,
   res: Response
 ): Promise<void> => {

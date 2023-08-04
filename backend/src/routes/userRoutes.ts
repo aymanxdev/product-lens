@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { registerUser, loginUser, refreshToken, logoutUser, getAllUsers, searchUsers, sendFriendInvitation, acceptFriendInvitation, rejectFriendInvitation, deleteFriend } from "../controllers/userController";
 import { isRole, isAuthenticated } from "../middleware/authMiddleware";
-import { deleteFeedback } from "../controllers/feedbackController";
+import { deleteFeedback, addFeedback, getUserFeedbacks } from "../controllers/feedbackController";
 
 const router = Router();
 
@@ -19,5 +19,7 @@ router.delete('/:friendId/friends', isAuthenticated, deleteFriend)
 
 //Feedback routes
 router.delete('/:feedbackId', isAuthenticated, deleteFeedback)
+router.post('/v1/feedbacks', isAuthenticated, addFeedback)
+router.get('/v1/feedbacks', isAuthenticated, getUserFeedbacks)
 
 export default router;
