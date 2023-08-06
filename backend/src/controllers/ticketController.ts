@@ -101,7 +101,6 @@ const upvoteTicketHandler = async ( req: IUserRequest, res: Response ): Promise<
     }
 
     ticket.upVotedBy.push(req.user._id);
-    ticket.votes += 1;
     await ticket.save();
     res.status(200).json({ message: "Ticket up voted" });
 
