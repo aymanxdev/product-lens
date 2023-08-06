@@ -10,6 +10,9 @@ export interface IFeedback extends Document {
     createdAt: Date;
     modifiedAt: Date
     userId: IUser["_id"];
+    status: string;
+    votes: number;
+    comments: Schema.Types.ObjectId[];
 }
 
 const feedbackSchema = new mongoose.Schema<IFeedback>({
@@ -21,6 +24,9 @@ const feedbackSchema = new mongoose.Schema<IFeedback>({
     createdAt: {type: Date, default: Date.now},
     modifiedAt: {type: Date},
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    status: {type: String, required:true},
+    votes: {type: Number, required: true},
+    comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
 });
 
 const Feedback = mongoose.model<IFeedback>("Feedback", feedbackSchema);
