@@ -1,7 +1,7 @@
 import mongoose, {Document, Schema} from "mongoose";
 import { IUser } from "./userModel";
 
-export interface IFeedback extends Document {
+export interface ITicket extends Document {
     title: string;
     category: string;
     description: string;
@@ -15,7 +15,7 @@ export interface IFeedback extends Document {
     comments: Schema.Types.ObjectId[];
 }
 
-const feedbackSchema = new mongoose.Schema<IFeedback>({
+const ticketSchema = new mongoose.Schema<ITicket>({
     title: {type: String, required: true},
     category: {type: String, required: true},
     description: {type: String, required: true},
@@ -29,6 +29,4 @@ const feedbackSchema = new mongoose.Schema<IFeedback>({
     comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
 });
 
-const Feedback = mongoose.model<IFeedback>("Feedback", feedbackSchema);
-
-export default Feedback
+export default mongoose.model<ITicket>("Ticket", ticketSchema);
