@@ -1,5 +1,6 @@
 import mongoose, {Document, Schema} from "mongoose";
 import { IUser } from "./userModel";
+import { IComment } from "./commentModel";
 
 export interface ITicket extends Document {
     title: string;
@@ -11,8 +12,9 @@ export interface ITicket extends Document {
     modifiedAt: Date
     userId: IUser["_id"];
     status: string;
+    comments: IComment['_id'][];
     votes: number;
-    comments: Schema.Types.ObjectId[];
+    upVotedBy: IUser['_id'][];
 }
 
 const ticketSchema = new mongoose.Schema<ITicket>({
