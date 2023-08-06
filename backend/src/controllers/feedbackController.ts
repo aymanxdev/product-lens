@@ -1,9 +1,13 @@
-import { Request, Response } from "express";
+import {  Response } from "express";
 import { IUserRequest } from "../types";
 import Feedback, { IFeedback } from "../models/feedbackModel";
-import User, { IUser } from "../models/userModel";
+import User from "../models/userModel";
+import {  withUserInRequest } from "../helpers/request";
 
-export const getUserFeedbacks = async (req: IUserRequest, res: Response): Promise<any> => {
+export const getUserFeedbacksHandler = async (
+  req: IUserRequest,
+  res: Response
+): Promise<any> => {
   const { userId } = req.params;
   const userIdFromToken = req.user?._id;
 
@@ -24,38 +28,44 @@ export const getUserFeedbacks = async (req: IUserRequest, res: Response): Promis
   }
 };
 
-export const addFeedback = async (req: IUserRequest, res: Response): Promise<void> => {
-    const {title, category, detail, tags} = req.body
-    
-    const feedback = new Feedback({title, category, detail, tags, userId: req.user._id})
-    try {
-        await feedback.save()
-        res.status(200).json({message: "Feedback added successfully"})
-    } catch (error) {
-        res.status(500).json({ error: "Error adding feedback", errorMessage: error })
-    }
-}
+export const addFeedbackHandler = async (
+  req: IUserRequest,
+  res: Response
+): Promise<void> => {
+  const { title, category, detail, tags } = req.body;
 
+  const feedback = new Feedback({ title, category, detail, tags, userId: req.user._id });
+  try {
+    await feedback.save();
+    res.status(200).json({ message: "Feedback added successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error adding feedback", errorMessage: error });
+  }
+};
 
-export const deleteFeedback = async (req: IUserRequest, res: Response) => {
+const deleteFeedbackHandler = async (req: IUserRequest, res: Response): Promise<void> => {
   try {
     const feedback: IFeedback | null = await Feedback.findById(req.params.id);
-
     if (!feedback) {
-      return res.status(404).json({ error: "Feedback not found" });
+      res.status(404).json({ error: "Feedback not found" });
+      return;
     }
 
     if (feedback.userId !== req.user._id) {
-      return res
-        .status(403)
-        .json({ error: "Not authorized to delete this feedback" });
+      res.status(403).json({ error: "Not authorized to delete this feedback" });
+      return;
     }
 
     await Feedback.deleteOne({ _id: feedback._id });
     res.status(200).json({ message: "Feedback deleted" });
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Error deleting feedback", errorMessage: error });
+    res.status(500).json({ error: "Error deleting feedback", errorMessage: error });
   }
+  return; 
 };
+
+export const deleteFeedback = withUserInRequest(deleteFeedbackHandler);
+export const addFeedback = withUserInRequest(addFeedbackHandler);
+export const getUserFeedbacks = withUserInRequest(getUserFeedbacksHandler);

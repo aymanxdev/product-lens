@@ -1,11 +1,12 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 import User, { IUser } from "../models/userModel";
-import { IUserRequest } from "../types";
+import {isIUserRequest} from '../helpers/request'
+
 
 // Middleware to check if user is authenticated
-export const isAuthenticated = async (
-  req: IUserRequest,
+export const isAuthenticated: RequestHandler = async (
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -35,7 +36,7 @@ export const isAuthenticated = async (
 
 // Middleware to check if user is admin
 export const isRole = (userRole: string) => {
-  return async (req: IUserRequest, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
         // Use the type guard to narrow down the type of req
   if (!isIUserRequest(req)) {
@@ -61,8 +62,3 @@ export const isRole = (userRole: string) => {
     }
   };
 };
-
-// This function is a type guard which checks if a request is an IUserRequest.
-function isIUserRequest(req: Request): req is IUserRequest {
-  return (req as IUserRequest).user !== undefined;
-}
