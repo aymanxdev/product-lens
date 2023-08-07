@@ -12,7 +12,6 @@ import {
   deleteFriend,
 } from "../controllers/userController";
 import { isRole, isAuthenticated } from "../middleware/authMiddleware";
-import { deleteFeedback, addFeedback, getUserFeedbacks, editFeedback } from "../controllers/feedbackController";
 
 const router = Router();
 
