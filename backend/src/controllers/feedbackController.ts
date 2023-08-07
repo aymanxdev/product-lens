@@ -4,7 +4,7 @@ import Feedback, { IFeedback } from "../models/feedbackModel";
 import User from "../models/userModel";
 import {  withUserInRequest } from "../helpers/request";
 
-export const getUserFeedbacksHandler = async (
+const getUserFeedbacksHandler = async (
   req: IUserRequest,
   res: Response
 ): Promise<any> => {
@@ -28,7 +28,7 @@ export const getUserFeedbacksHandler = async (
   }
 };
 
-export const addFeedbackHandler = async (
+const addFeedbackHandler = async (
   req: IUserRequest,
   res: Response
 ): Promise<void> => {
@@ -44,6 +44,36 @@ export const addFeedbackHandler = async (
       .json({ error: "Error adding feedback", errorMessage: error });
   }
 };
+
+const editFeedbackHandler = async ( req: IUserRequest, res: Response): Promise<void> => {
+
+  const { title, category, description, tags } = req.body;
+  const feedback: IFeedback | null = await Feedback.findById(req.params.id);
+  if (!feedback) {
+    res.status(404).json({ error: "Feedback not found" });
+    return;
+  }
+
+  if (feedback.userId !== req.user._id) {
+    res.status(403).json({ error: "Not authorized to edit this feedback" });
+    return;
+  }
+
+  try {
+    feedback.title = title;
+    feedback.category = category;
+    feedback.description = description;
+    feedback.tags = tags;
+    await feedback.save();
+    res.status(200).json({ message: "Feedback edited successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error editing feedback", errorMessage: error });
+  }
+  return;
+
+}
 
 const deleteFeedbackHandler = async (req: IUserRequest, res: Response): Promise<void> => {
   try {
@@ -69,3 +99,4 @@ const deleteFeedbackHandler = async (req: IUserRequest, res: Response): Promise<
 export const deleteFeedback = withUserInRequest(deleteFeedbackHandler);
 export const addFeedback = withUserInRequest(addFeedbackHandler);
 export const getUserFeedbacks = withUserInRequest(getUserFeedbacksHandler);
+export const editFeedback = withUserInRequest(editFeedbackHandler);

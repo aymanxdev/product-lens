@@ -11,6 +11,7 @@ const createExpressApp = () => {
 
   // Routes
   app.use("/accounts", userRoutes);
+  app.use("/content", userRoutes);
 
   // Error handling
   app.use(
