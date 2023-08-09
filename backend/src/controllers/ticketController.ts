@@ -4,22 +4,6 @@ import Ticket, { ITicket } from "../models/ticketModel";
 import User from "../models/userModel";
 import Comment from '../models/commentModel';
 import { withUserInRequest } from "../helpers/request";
-
-
-// const isSelectedTicketValid = (req: IUserRequest, res: Response, ticket: ITicket | null): boolean => {
-//   if (!ticket) {
-//     res.status(404).json({ error: "Ticket not found" });
-//     return false;
-//   }
-
-//   if (ticket.userId !== req.user._id) {
-//     res.status(403).json({ error: "Not authorized to change this ticket" });
-//     return false;
-//   }
-
-//   return true;
-// }
-
 const getUserTicketsHandler = async ( req: IUserRequest, res: Response ): Promise<any> => {
   const { userId } = req.params;
   const userIdFromToken = req.user?._id;
