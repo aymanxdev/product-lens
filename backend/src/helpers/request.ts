@@ -9,8 +9,14 @@ export const isIUserRequest =(req: Request): req is IUserRequest =>{
 export function withUserInRequest(handler: (req: IUserRequest, res: Response) => Promise<void>): RequestHandler {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (!isIUserRequest(req)) {
-      return res.status(401).json({ error: "Request is not IUserRequest" });
+        return res.status(401).json({ error: "Request is not IUserRequest" });
     }
-    return handler(req, res);
-  };
+    try {
+        await handler(req, res);
+        next();
+    } catch (err) {
+        next(err);
+    }
+};
+
 }
