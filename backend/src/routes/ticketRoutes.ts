@@ -13,7 +13,7 @@ import { validateCommentId, validateTicketId } from "../middleware/validationMid
 const router = Router();
 
 // Base route for creating a new ticket
-router.post("/", isAuthenticated, addTicket);
+router.post("/tickets", isAuthenticated, addTicket);
 
 // Route to change the status of a ticket (e.g., todo, in progress, done)
 router.patch("/:ticketId/status", isAuthenticated, validateTicketId, changeTicketStatus);
