@@ -6,13 +6,17 @@ import {
   changeTicketStatus,
   upvoteTicket,
   deleteTicket,
+  getUserTickets,
 } from "../controllers/ticketController";
 import { isAuthenticated } from "../middleware/authMiddleware";
 import { validateCommentId, validateTicketId } from "../middleware/validationMiddleware";
 
 const router = Router();
 
-// Base route for creating a new ticket
+// Route to get all tickets for a user
+router.get("/tickets/:userId", isAuthenticated, getUserTickets);
+
+// Route for creating a new ticket
 router.post("/tickets", isAuthenticated, addTicket);
 
 // Route to change the status of a ticket (e.g., todo, in progress, done)

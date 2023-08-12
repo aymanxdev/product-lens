@@ -1,19 +1,22 @@
 import { Response } from "express";
-import { IUserRequest } from "../types";
 import Ticket, { ITicket } from "../models/ticketModel";
 import User from "../models/userModel";
 import Comment from '../models/commentModel';
 import { withUserInRequest } from "../helpers/request";
-const getUserTicketsHandler = async ( req: IUserRequest, res: Response ): Promise<any> => {
-  const { userId } = req.params;
-  const userIdFromToken = req.user?._id;
+import { IUserRequest } from "../types";
 
+const getUserTicketsHandler = async ( req: IUserRequest, res: Response ): Promise<any>=> {
+  console.log("Entered getUserTicketsHandler");
+
+  const { userId } = req.params;
+  const userIdFromToken = req.user?._id.toString()
+  console.log(userId, userIdFromToken)
   if (userId !== userIdFromToken) {
     return res.status(400).json({ message: "Forbidden" });
   }
 
   try {
-    const user = await User.findById(req.user._id).populate("friends");
+    const user = await User.findById(req.user?._id).populate("friends");
     const tickets = await Ticket.find({
       userId: { $in: [...(user?.friends || []), req.user?._id] },
     });
@@ -26,10 +29,11 @@ const getUserTicketsHandler = async ( req: IUserRequest, res: Response ): Promis
 };
 
 const addTicketHandler = async ( req: IUserRequest, res: Response ): Promise<void> => {
-  const { title, category, detail, tags } = req.body;
+  const { title,description, category, detail, tags } = req.body;
 
   const ticket = new Ticket({
     title,
+    description,
     category,
     detail,
     tags,
@@ -37,7 +41,7 @@ const addTicketHandler = async ( req: IUserRequest, res: Response ): Promise<voi
   });
   try {
     await ticket.save();
-    res.status(200).json({ message: "Ticket added successfully" });
+    res.status(200).json({ message: "Ticket added successfully" , _id: ticket._id });
   } catch (error) {
     res.status(500).json({ error: "Error adding ticket", errorMessage: error });
   }
@@ -61,7 +65,7 @@ const changeTicketStatusHandler = async ( req: IUserRequest, res: Response ): Pr
 
     ticket.status = newStatus;
     await ticket.save();
-    res.status(200).json({ message: "Ticket status changed" });
+    res.status(200).json({ message: "Ticket status changed", _id: ticket._id });
   } catch (error) {
     res
       .status(500)
