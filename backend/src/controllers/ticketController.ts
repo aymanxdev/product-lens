@@ -19,6 +19,12 @@ const getUserTicketsHandler = async (
   const limit = Math.min(Number(req.query.limit) || 10, MAX_LIMIT);
   const offset = Number(req.query.offset) || 0; // Default to 0 if not provided
 
+const getUserTicketsHandler = async ( req: IUserRequest, res: Response ): Promise<any>=> {
+  console.log("Entered getUserTicketsHandler");
+
+  const { userId } = req.params;
+  const userIdFromToken = req.user?._id.toString()
+  console.log(userId, userIdFromToken)
   if (userId !== userIdFromToken) {
     return res.status(400).json({ message: "Forbidden" });
   }
