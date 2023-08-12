@@ -29,3 +29,5 @@ router.patch("/:ticketId/vote", isAuthenticated, validateTicketId, upvoteTicket)
 
 // Route for deleting a ticket
 router.delete("/:ticketId", isAuthenticated, validateTicketId, deleteTicket);
+
+export default router;
