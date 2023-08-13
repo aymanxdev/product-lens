@@ -21,19 +21,20 @@ const getUserTicketsHandler = async (
 
 const MAX_LIMIT = 50;
 
-const getUserTicketsHandler = async ( req: IUserRequest, res: Response ): Promise<any>=> {
+const getUserTicketsHandler = async (
+  req: IUserRequest,
+  res: Response
+): Promise<any> => {
   const { userId } = req.params;
-  const userIdFromToken = req.user?._id.toString()
+  const userIdFromToken = req.user?._id.toString();
 
   // Retrieve the limit and offset from the query parameters
-  const limit = Math.min(Number(req.query.limit) || 10, MAX_LIMIT); 
+  const limit = Math.min(Number(req.query.limit) || 10, MAX_LIMIT);
   const offset = Number(req.query.offset) || 0; // Default to 0 if not provided
 
   if (userId !== userIdFromToken) {
     return res.status(400).json({ message: "Forbidden" });
   }
-
-  
 
   try {
     const user = await User.findById(req.user?._id).populate("friends");
