@@ -118,16 +118,22 @@ const upvoteTicketHandler = async ( req: IUserRequest, res: Response ): Promise<
 };
 
 const addCommentToTicketHandler = async ( req: IUserRequest, res: Response ): Promise<void> => {
-  const {ticketId, commentText} = req.body;
-  
+  const {selectedTicketId, commentText} = req.body;
+  const {ticketId} = req.params;
+
+  if (ticketId !== selectedTicketId) {
+    res.status(400).json({ error: "Ticket ID in body does not match ticket ID in params" });
+    return;
+  }
+
   try {
-    const ticket = await Ticket.findById(ticketId);
+    const ticket = await Ticket.findById(selectedTicketId);
     if (!ticket) {
       res.status(404).json({ error: "Ticket not found" });
       return;
     }
 
-    const newComment = new Comment({text: commentText, user: req.user._id}) 
+    const newComment = new Comment({text: commentText, userId: req.user._id}) 
     await newComment.save();
 
     ticket.comments.push(newComment._id);
