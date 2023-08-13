@@ -34,6 +34,9 @@ const userSchema = new Schema<IUser>({
   invitations: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
+// Adding indexes
+userSchema.index({ name: "text", email: "text" });
+
 const User = mongoose.model<IUser>("User", userSchema);
 
 export default User;

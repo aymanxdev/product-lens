@@ -4,7 +4,7 @@ import User from "../models/userModel";
 import Comment from "../models/commentModel";
 import { withUserInRequest } from "../helpers/request";
 import { IUserRequest } from "../types";
-import { isEqual } from "../utils";
+import { deleteItemFrom, isEqual } from "../utils";
 
 const MAX_LIMIT = 50;
 
@@ -110,66 +110,66 @@ const addTicketHandler = async (
 //   }
 // };
 
-const updateTicketHandler = async (
-  req: IUserRequest,
-  res: Response
-): Promise<void> => {
-  const { selectedTicketId, status, action } = req.body;
+const updateTicketHandler = async ( req: IUserRequest, res: Response ): Promise<void> => {
+  const { selectedTicketId, status, action, title, description, commentToDelete } = req.body;
   const { ticketId } = req.params;
 
   if (ticketId !== selectedTicketId) {
-    res
-      .status(400)
-      .json({ error: "Ticket ID in body does not match ticket ID in params" });
-    return;
+    return sendError(res, 400, "Ticket ID in body does not match ticket ID in params");
   }
 
   try {
     const ticket = await Ticket.findById(selectedTicketId);
     if (!ticket) {
-      res.status(404).json({ error: "Ticket not found" });
-      return;
+      return sendError(res, 404, "Ticket not found");
     }
+
+    if (!isEqual(ticket.userId, req.user._id)) {
+      return sendError(res, 403, "Not authorized to change this ticket");
+    }
+
+    if (title) ticket.title = title;
+    if (description) ticket.description = description;
+    if (commentToDelete) { ticket.comments = deleteItemFrom(ticket.comments, commentToDelete)}
 
     switch (action) {
       case "upvote":
         if (ticket.upVotedBy.includes(req.user._id)) {
-          res.status(403).json({ error: "Already up voted this ticket" });
-          return;
+          return sendError(res, 403, "Already up voted this ticket");
         }
-
         ticket.upVotedBy.push(req.user._id);
-        await ticket.save();
-        res.status(200).json({ message: "Ticket up voted" });
         break;
 
       case "changeStatus":
         if (!status) {
-          res
-            .status(400)
-            .json({ error: "Status required to change ticket status" });
-          return;
-        }
-        if (!isEqual(ticket.userId, req.user._id)) {
-          res
-            .status(403)
-            .json({ error: "Not authorized to change this ticket" });
-          return;
+          return sendError(res, 400, "Status required to change ticket status");
         }
         ticket.status = status;
-        await ticket.save();
-        res
-          .status(200)
-          .json({ message: "Ticket status changed", _id: ticket._id });
+        break;
 
       default:
-        res.status(400).json({ error: "Invalid action specified" });
+        if (!title && !description && !commentToDelete) {
+          return sendError(res, 400, "Invalid action specified or no updates provided");
+        }
     }
+
+    await ticket.save();
+
+    res.status(200).json({ message: "Ticket updated", _id: ticket._id });
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Error up voting ticket", errorMessage: error });
+    sendError(res, 500, "Error updating ticket", error);
   }
+};
+
+const sendError = (
+  res: Response,
+  statusCode: number,
+  message: string,
+  error?: any
+): void => {
+  const responseObject: { error: string; errorMessage?: any } = { error: message };
+  if (error) responseObject.errorMessage = error;
+  res.status(statusCode).json(responseObject);
 };
 
 const addCommentToTicketHandler = async (

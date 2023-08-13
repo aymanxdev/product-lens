@@ -156,12 +156,27 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const searchUsers = async (req: Request, res: Response) => {
   try {
+
+    if (!req.query.q) {
+      return res.status(400).json({ error: "Query parameter 'q' is required" });
+    }
+
+    const query = req.query.q.toString()
+    // const users = await User.find({
+    //   $or: [
+    //     { name: { $regex: query, $options: "i" } },
+    //     { email: { $regex: query, $options: "i" } },
+    //   ],
+    // }).select("-password");
+
     const users = await User.find({
-      $in: [
-        { name: { $regex: req.params.query, $options: "i" } },
-        { email: { $regex: req.params.query, $options: "i" } },
-      ],
-    }).select("-password");
+      $text: { $search: query }  
+    }, {
+      score: { $meta: "textScore" }  
+    })
+    .select("-password")
+    .sort({ score: { $meta: "textScore" } });  
+    console.log(users);
     res.status(200).json(users);
   } catch (error) {
     res
