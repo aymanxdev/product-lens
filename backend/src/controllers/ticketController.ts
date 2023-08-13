@@ -5,22 +5,42 @@ import Comment from '../models/commentModel';
 import { withUserInRequest } from "../helpers/request";
 import { IUserRequest } from "../types";
 
-const getUserTicketsHandler = async ( req: IUserRequest, res: Response ): Promise<any>=> {
-  console.log("Entered getUserTicketsHandler");
+const MAX_LIMIT = 50;
 
+const getUserTicketsHandler = async ( req: IUserRequest, res: Response ): Promise<any>=> {
   const { userId } = req.params;
   const userIdFromToken = req.user?._id.toString()
-  console.log(userId, userIdFromToken)
+
+  // Retrieve the limit and offset from the query parameters
+  const limit = Math.min(Number(req.query.limit) || 10, MAX_LIMIT); 
+  const offset = Number(req.query.offset) || 0; // Default to 0 if not provided
+
   if (userId !== userIdFromToken) {
     return res.status(400).json({ message: "Forbidden" });
   }
 
+  
+
   try {
     const user = await User.findById(req.user?._id).populate("friends");
-    const tickets = await Ticket.find({
-      userId: { $in: [...(user?.friends || []), req.user?._id] },
+    const tickets = await Ticket.find({ userId: { $in: [...(user?.friends || []), req.user?._id] },}) 
+    .limit(limit)  
+    .skip(offset);  
+ 
+    const totalRecords = await Ticket.countDocuments({userId:{$in: [...(user?.friends || []), req.user?._id]}})
+    const totalPages = Math.ceil(totalRecords / limit);
+    const currentPage = Math.floor(offset / limit) + 1;
+       
+    res.status(200).json({
+      data: tickets,
+      meta:{
+        totalRecords,
+        totalPages,
+        currentPage,
+        limit,
+        offset
+      }
     });
-    res.status(200).json(tickets);
   } catch (error) {
     res
       .status(500)

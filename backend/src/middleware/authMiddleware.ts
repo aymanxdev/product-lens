@@ -14,7 +14,6 @@ export const isAuthenticated: RequestHandler = async (
   // if (!isIUserRequest(req)) {
   //   return res.status(401).json({ error: "Request is not IUserRequest" });
   // }
-console.log("Entered isAuthenticated")
   const token = req.cookies.access_token;
 
   if (!token) {
