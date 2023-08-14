@@ -161,7 +161,7 @@ export const searchUsers = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Query parameter 'q' is required" });
     }
 
-    const query = req.query.q.toString()
+    const query = req.query.q
     // const users = await User.find({
     //   $or: [
     //     { name: { $regex: query, $options: "i" } },
@@ -170,7 +170,7 @@ export const searchUsers = async (req: Request, res: Response) => {
     // }).select("-password");
 
     const users = await User.find({
-      $text: { $search: query }  
+      $text:  { $search: query.toString() } 
     }, {
       score: { $meta: "textScore" }  
     })
