@@ -162,21 +162,21 @@ export const searchUsers = async (req: Request, res: Response) => {
     }
 
     const query = req.query.q
-    // const users = await User.find({
-    //   $or: [
-    //     { name: { $regex: query, $options: "i" } },
-    //     { email: { $regex: query, $options: "i" } },
-    //   ],
-    // }).select("-password");
-
     const users = await User.find({
-      $text:  { $search: query.toString() } 
-    }, {
-      score: { $meta: "textScore" }  
-    })
-    .select("-password")
-    .sort({ score: { $meta: "textScore" } });  
-    console.log(users);
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { email: { $regex: query, $options: "i" } },
+      ],
+    }).select("-password");
+
+    // const users = await User.find({
+    //   $text:  { $search: query.toString() } 
+    // }, {
+    //   score: { $meta: "textScore" }  
+    // })
+    // .select("-password")
+    // .sort({ score: { $meta: "textScore" } });  
+
     res.status(200).json(users);
   } catch (error) {
     res
