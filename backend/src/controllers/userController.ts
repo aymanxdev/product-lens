@@ -176,6 +176,8 @@ export const searchUsers = async (req: Request, res: Response) => {
     // })
     // .select("-password")
     // .sort({ score: { $meta: "textScore" } });  
+    // test with //product-feedback>  db.users.find({ $text: { $search: "name:guest" }});
+
 
     res.status(200).json(users);
   } catch (error) {
