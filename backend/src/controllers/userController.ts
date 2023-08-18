@@ -168,6 +168,8 @@ export const searchUsers = async (req: Request, res: Response) => {
         { email: { $regex: query, $options: "i" } },
       ],
     }).select("-password");
+    
+    //find({ $text: { $search: "email:guest" } });
 
     // const users = await User.find({
     //   $text:  { $search: query.toString() } 
