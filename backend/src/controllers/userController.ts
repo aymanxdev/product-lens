@@ -162,6 +162,9 @@ export const searchUsers = async (req: Request, res: Response) => {
     }
 
     const query = req.query.q
+    
+    //db.users.find({ name: { $regex: 'guest', $options: 'i' } });
+
     const users = await User.find({
       $or: [
         { name: { $regex: query, $options: "i" } },
