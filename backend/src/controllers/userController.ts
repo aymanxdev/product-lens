@@ -170,7 +170,10 @@ export const searchUsers = async (req: Request, res: Response) => {
         { name: { $regex: query, $options: "i" } },
         { email: { $regex: query, $options: "i" } },
       ],
-    }).select("-password");
+    })
+    .select("-password")
+    .sort({ name: 1 })
+    
     
     //find({ $text: { $search: "email:guest" } });
 

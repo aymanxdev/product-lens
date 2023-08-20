@@ -35,7 +35,9 @@ const userSchema = new Schema<IUser>({
 });
 
 // Adding indexes
-userSchema.index({ name: "text", email: "text" });
+// userSchema.index({ name: "text", email: "text" });
+userSchema.index({ name: 1 });
+
 
 const User = mongoose.model<IUser>("User", userSchema);
 
