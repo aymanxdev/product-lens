@@ -171,7 +171,7 @@ export const searchUsers = async (req: Request, res: Response) => {
         { email: { $regex: query, $options: "i" } },
       ],
     })
-    .select("-password")
+    .select("-password -refreshToken -invitations -friends -createdAt -__v  -role")
     .sort({ name: 1 })
     
     
