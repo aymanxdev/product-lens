@@ -154,14 +154,61 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+// Get me (current user)
+const getMeHandler = async (req: IUserRequest, res: Response) => {
+  try {
+    const user = await User.findById(req.user._id)
+      .select("-password -refreshToken -__v -role");
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({ error: "Error getting user", errorMessage: error });
+  }
+}
+
+// Get user by ID
+const getUserByIdHandler = async (req: IUserRequest, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id)
+      .select("-password -refreshToken -__v -role");
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({ error: "Error getting user", errorMessage: error });
+  }
+}
+
 export const searchUsers = async (req: Request, res: Response) => {
   try {
+
+    if (!req.query.q) {
+      return res.status(400).json({ error: "Query parameter 'q' is required" });
+    }
+
+    const query = req.query.q
+    
+    //db.users.find({ name: { $regex: 'guest', $options: 'i' } });
+
     const users = await User.find({
-      $in: [
-        { name: { $regex: req.params.query, $options: "i" } },
-        { email: { $regex: req.params.query, $options: "i" } },
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { email: { $regex: query, $options: "i" } },
       ],
-    }).select("-password");
+    })
+    .select("-password -refreshToken -invitations -friends -createdAt -__v  -role")
+    .sort({ name: 1 })
+    
+    
+    //find({ $text: { $search: "email:guest" } });
+
+    // const users = await User.find({
+    //   $text:  { $search: query.toString() } 
+    // }, {
+    //   score: { $meta: "textScore" }  
+    // })
+    // .select("-password")
+    // .sort({ score: { $meta: "textScore" } });  
+    // test with //product-feedback>  db.users.find({ $text: { $search: "name:guest" }});
+
+
     res.status(200).json(users);
   } catch (error) {
     res
@@ -274,3 +321,5 @@ export const sendFriendInvitation = withUserInRequest(sendFriendInvitationHandle
 export const acceptFriendInvitation = withUserInRequest(acceptFriendInvitationHandler);
 export const rejectFriendInvitation = withUserInRequest(rejectFriendInvitationHandler);
 export const deleteFriend = withUserInRequest(deleteFriendHandler);
+export const getMe = withUserInRequest(getMeHandler);
+export const getUserById = withUserInRequest(getUserByIdHandler);
