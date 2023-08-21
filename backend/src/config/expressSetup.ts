@@ -1,7 +1,6 @@
 import cookieParser from "cookie-parser";
 import express from "express";
 import userRoutes from "../routes/userRoutes";
-import ticketRoutes from "../routes/ticketRoutes";
 
 const createExpressApp = () => {
   const app = express();
@@ -12,7 +11,7 @@ const createExpressApp = () => {
 
   // Routes
   app.use("/accounts", userRoutes);
-  app.use("/content", ticketRoutes);
+  app.use("/content", userRoutes);
 
   // Error handling
   app.use(

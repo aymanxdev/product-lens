@@ -20,8 +20,8 @@ export interface IUser extends Document {
 }
 
 const userSchema = new Schema<IUser>({
-  name: { type: String, required: true , index: "text"},
-  email: { type: String, required: true, unique: true, index: "text"  },
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: {
     type: String,
@@ -33,11 +33,6 @@ const userSchema = new Schema<IUser>({
   friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
   invitations: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
-
-// Adding indexes
-// userSchema.index({ name: "text", email: "text" });
-userSchema.index({ name: 1 });
-
 
 const User = mongoose.model<IUser>("User", userSchema);
 

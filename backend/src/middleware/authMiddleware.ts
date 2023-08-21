@@ -11,9 +11,10 @@ export const isAuthenticated: RequestHandler = async (
   next: NextFunction
 ) => {
   // Use the type guard to narrow down the type of req
-  // if (!isIUserRequest(req)) {
-  //   return res.status(401).json({ error: "Request is not IUserRequest" });
-  // }
+  if (!isIUserRequest(req)) {
+    return res.status(401).json({ error: "Request is not IUserRequest" });
+  }
+
   const token = req.cookies.access_token;
 
   if (!token) {
