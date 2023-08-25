@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
+  // useState is a React hook that lets you add React state to function components
   const [count, setCount] = useState(0)
 
   return (
