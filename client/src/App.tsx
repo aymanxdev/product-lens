@@ -7,7 +7,7 @@ function App() {
   // useState is a React hook that lets you add React state to function components
   //test 7
   const [count, setCount] = useState(0);
-  console.log("test");
+  console.log("test2");
   return (
     <>
       <div>
