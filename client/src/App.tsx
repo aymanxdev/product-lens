@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
   // useState is a React hook that lets you add React state to function components
-  //test 1
-  const [count, setCount] = useState(0)
-
+  //test 2
+  const [count, setCount] = useState(0);
+  console.log("test");
   return (
     <>
       <div>
@@ -31,7 +31,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
