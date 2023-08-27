@@ -4,12 +4,13 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import { Router } from "routes/Router";
+import { LanguageProvider } from "common/languages/context/LanguageContext";
 
 function App() {
   const [count, setCount] = useState(0);
   console.log("count", count);
   return (
-    <>
+    <LanguageProvider>
       <RouterProvider router={Router} />
 
       <div>
@@ -32,7 +33,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-    </>
+    </LanguageProvider>
   );
 }
 
