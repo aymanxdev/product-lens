@@ -5,7 +5,7 @@ interface PageProps {
 }
 
 const Page = ({ children }: PageProps) => {
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 export default Page;
