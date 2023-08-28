@@ -8,6 +8,7 @@ interface Routes {
 }
 
 const Home = lazy(() => import("../pages/Home"));
+const RegistrationPage = lazy(() => import("../pages/RegistrationPage"));
 const PageNotFound = lazy(() => import("../pages/NotFound"));
 
 const getRouteElement = (Component: ElementType): ReactNode => {
@@ -23,6 +24,7 @@ const getRouteElement = (Component: ElementType): ReactNode => {
 const routes: Routes[] = [
   { path: paths.HOME, element: getRouteElement(Home) },
   { path: paths.NOT_FOUND, element: getRouteElement(PageNotFound) },
+  { path: paths.REGISTER, element: getRouteElement(RegistrationPage) },
 ];
 
 export const Router = createBrowserRouter(routes);
