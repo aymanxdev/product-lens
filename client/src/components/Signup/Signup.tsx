@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { validateForm } from "helpers/validation";
-
+import "./signup.style.scss";
 interface SignupFormValues {
   name: string;
   email: string;
@@ -9,8 +9,8 @@ interface SignupFormValues {
 }
 export const Signup = () => {
   return (
-    <div className="container">
-      <div className="wrapper">
+    <div className="sign-up-container">
+      <div className="sign-up-wrapper">
         <div className="Heading">
           <h1>Sign Up</h1>
           <p>It's quick and easy.</p>
@@ -35,7 +35,7 @@ export const Signup = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.name}
-                    className={touched.name && errors.name ? "has-error" : ""}
+                    className="form-input"
                   />
                   {touched.name && errors.name ? (
                     <div className="error-message">{errors.name}</div>
