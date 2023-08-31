@@ -30,7 +30,6 @@ export const Signup = () => {
                   <input
                     type="text"
                     name="name"
-                    id="name"
                     placeholder="Enter your name"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -40,13 +39,11 @@ export const Signup = () => {
                   {touched.name && errors.name ? (
                     <div className="error-message">{errors.name}</div>
                   ) : null}
-                </div>
-                <div className="form-group">
+
                   <label htmlFor="email">Email</label>
                   <input
                     type="text"
                     name="email"
-                    id="email"
                     placeholder="Enter your email"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -56,13 +53,11 @@ export const Signup = () => {
                   {touched.email && errors.email ? (
                     <div className="error-message">{errors.email}</div>
                   ) : null}
-                </div>
-                <div className="form-group">
+
                   <label htmlFor="password">Password</label>
                   <input
                     type="text"
                     name="password"
-                    id="password"
                     placeholder="Enter your password"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -74,9 +69,10 @@ export const Signup = () => {
                   {touched.password && errors.password ? (
                     <div className="error-message">{errors.password}</div>
                   ) : null}
-                </div>
-                <div className="form-group">
-                  <button type="submit">Sign up</button>
+
+                  <button className="submit-button" type="submit">
+                    Sign up
+                  </button>
                 </div>
               </Form>
             )}
