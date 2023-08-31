@@ -5,6 +5,23 @@
   width: 50%;
   max-width: 500px;
   margin: 0 auto;
+
+  .heading {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    & > h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+    & > p {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+  }
 }
 
 .form-group {
@@ -12,10 +29,16 @@
   flex-direction: column;
 
   label {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  input,
+  .submit-button,
+  .error-message {
+    box-sizing: border-box;
   }
 
   input {
@@ -29,16 +52,17 @@
   }
 
   .submit-button {
-    border-radius: 8px;
-    padding: 0.6em 1.2em;
+    border: none;
+    border-radius: 5px;
+    padding: 0.8rem;
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background: linear-gradient(-45deg, #23a6d5, #23d5ab);
+    background: linear-gradient(-45deg, #c1e4f6, #c1f6e4);
     cursor: pointer;
-    transition: border-color 0.25s;
     width: 100%;
     margin-bottom: 1rem;
+    margin-top: 0.3rem;
   }
 
   .error-message {

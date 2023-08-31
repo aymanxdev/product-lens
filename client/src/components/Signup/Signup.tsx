@@ -11,7 +11,7 @@ export const Signup = () => {
   return (
     <div className="sign-up-container">
       <div className="sign-up-wrapper">
-        <div className="Heading">
+        <div className="heading">
           <h1>Sign Up</h1>
           <p>It's quick and easy.</p>
         </div>

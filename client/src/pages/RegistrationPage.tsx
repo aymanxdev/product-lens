@@ -8,7 +8,7 @@ const RegistrationPage = () => {
       <div className={`${CLASS_PREFIX}-left-column`}>
         <Signup />
       </div>
-      <div className={`${CLASS_PREFIX}-right-column`}>right side</div>
+      <div className={`${CLASS_PREFIX}-right-column`}></div>
     </div>
   );
 };
