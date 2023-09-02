@@ -48,7 +48,6 @@
     font-size: 1rem;
     width: 100%;
     background-color: white;
-    margin-bottom: 1rem;
   }
 
   .submit-button {
@@ -63,6 +62,10 @@
     width: 100%;
     margin-bottom: 1rem;
     margin-top: 0.3rem;
+
+    &:hover {
+      background: linear-gradient(-45deg, #c1f6e4, #c1e4f6);
+    }
   }
 
   .error-message {
@@ -70,9 +73,20 @@
     background-color: rgb(247, 200, 158, 0.39);
     font-size: 0.8rem;
     font-weight: bold;
+    margin-bottom: 0.3rem;
     margin-top: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 8px;
     width: 100%;
   }
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.show-password-checkbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
