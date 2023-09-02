@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from "react";
 import { Formik, Form } from "formik";
 import { validateForm } from "helpers/validation";
 import "./entryForm.style.scss";
@@ -8,7 +8,7 @@ interface SignupFormValues {
   password: string;
 }
 export const Signup = () => {
-  //   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="app-entry-form-wrapper">
@@ -60,8 +60,7 @@ export const Signup = () => {
               <div className="form-field">
                 <label htmlFor="password">Password</label>
                 <input
-                  //   type={showPassword ? 'text' : 'password'}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Enter your password"
                   onChange={handleChange}
@@ -71,17 +70,16 @@ export const Signup = () => {
                     touched.password && errors.password ? "has-error" : ""
                   }
                 />
-                {/* <div className='show-password-checkbox'>
-                    <input
-                      type='checkbox'
-                      id='show-password'
-                      name='show-password'
-                      checked={showPassword}
-                      onChange={() => setShowPassword(!showPassword)}
-                      
-                    />
-                    <p >Show password</p>
-                    </div> */}
+                <div className="show-password-checkbox">
+                  <input
+                    type="checkbox"
+                    id="show-password-login"
+                    name="show-password"
+                    checked={showPassword}
+                    onChange={() => setShowPassword(!showPassword)}
+                  />
+                  <span className="show-password-text">Show password</span>
+                </div>
                 {touched.password && errors.password ? (
                   <div className="error-message">{errors.password}</div>
                 ) : null}

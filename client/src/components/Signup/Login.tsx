@@ -45,8 +45,7 @@ export const Login = () => {
               <div className="form-field">
                 <label htmlFor="password">Password</label>
                 <input
-                  //   type={showPassword ? 'text' : 'password'}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Enter your password"
                   onChange={handleChange}
