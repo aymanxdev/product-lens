@@ -8,14 +8,16 @@ interface Routes {
 }
 
 const Home = lazy(() => import("../pages/Home"));
-const RegistrationPage = lazy(() => import("../pages/RegistrationPage"));
+const RegistrationAndLoginPage = lazy(
+  () => import("../pages/RegistrationAndLoginPage"),
+);
 const PageNotFound = lazy(() => import("../pages/NotFound"));
 
-const getRouteElement = (Component: ElementType): ReactNode => {
+const getRouteElement = (Component: ElementType, props?: any): ReactNode => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Page>
-        <Component />
+        <Component {...props} />
       </Page>
     </Suspense>
   );
@@ -24,7 +26,11 @@ const getRouteElement = (Component: ElementType): ReactNode => {
 const routes: Routes[] = [
   { path: paths.HOME, element: getRouteElement(Home) },
   { path: paths.NOT_FOUND, element: getRouteElement(PageNotFound) },
-  { path: paths.REGISTER, element: getRouteElement(RegistrationPage) },
+  { path: paths.REGISTER, element: getRouteElement(RegistrationAndLoginPage) },
+  {
+    path: paths.LOGIN,
+    element: getRouteElement(RegistrationAndLoginPage, { isLogin: true }),
+  },
 ];
 
 export const Router = createBrowserRouter(routes);

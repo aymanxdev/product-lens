@@ -1,4 +1,4 @@
-.sign-up-wrapper {
+.app-entry-form-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,6 +87,18 @@
 
 .show-password-checkbox {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+}
+
+.show-password-checkbox {
+  display: flex;
+  align-items: center;
   justify-content: flex-start;
+  margin-top: 0.8rem;
+
+  input[type='checkbox'] {
+    flex: none; // This makes sure it doesn't grow or shrink
+    width: auto; // Allows the checkbox to be its natural width
+    margin-right: 0.5rem;
+  }
 }
