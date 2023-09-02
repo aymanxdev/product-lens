@@ -1,6 +1,6 @@
-import i18n from "common/languages/i18n";
+import i18n from "contexts/languages/i18n";
 import { useContext } from "react";
-import { LanguageContext } from "common/languages/context/LanguageContext";
+import { LanguageContext } from "contexts/languages/LanguageContext";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { Router } from "routes/Router";
-import { LanguageProvider } from "common/languages/context/LanguageContext";
+import { LanguageProvider } from "contexts/languages/LanguageContext";
 
 function App() {
   return (
