@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { validateForm } from "helpers/validation";
+import { Link } from "react-router-dom";
+
 import "./entryForm.style.scss";
 interface LoginFormValues {
   name: string;
@@ -14,7 +16,10 @@ export const Login = () => {
     <div className="app-entry-form-wrapper">
       <div className="heading">
         <h1>Login</h1>
-        <p>It's quick and easy.</p>
+        <p>
+          Dive back into your projects and teams. Manage your tasks seamlessly
+          with Product Lens.
+        </p>
       </div>
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
@@ -22,9 +27,8 @@ export const Login = () => {
           console.log(values);
         }}
         validate={validateForm}
-        validateOnBlur={false}
       >
-        {({ values, handleChange, handleBlur, errors, touched }) => (
+        {({ values, handleChange, errors, touched }) => (
           <Form>
             <div className="form-group">
               <div className="form-field">
@@ -34,7 +38,6 @@ export const Login = () => {
                   name="email"
                   placeholder="Enter your email"
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   value={values.email}
                   className={touched.email && errors.email ? "has-error" : ""}
                 />
@@ -49,7 +52,6 @@ export const Login = () => {
                   name="password"
                   placeholder="Enter your password"
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   value={values.password}
                   className={
                     touched.password && errors.password ? "has-error" : ""
@@ -72,6 +74,14 @@ export const Login = () => {
               <button className="submit-button" type="submit">
                 Login
               </button>
+              <div className="separator">
+                <span>or</span>
+              </div>
+
+              <button className="google-login-button">Login with Google</button>
+              <Link to="/register" className="alternate-action-link">
+                Don't have an account? Sign up
+              </Link>
             </div>
           </Form>
         )}

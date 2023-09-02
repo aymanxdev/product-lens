@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { validateForm } from "helpers/validation";
+import { Link } from "react-router-dom";
+
 import "./entryForm.style.scss";
 interface SignupFormValues {
   name: string;
@@ -14,7 +16,7 @@ export const Signup = () => {
     <div className="app-entry-form-wrapper">
       <div className="heading">
         <h1>Sign Up</h1>
-        <p>It's quick and easy.</p>
+        <p>Begin your journey with Product Lens today.</p>
       </div>
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
@@ -23,8 +25,9 @@ export const Signup = () => {
         }}
         validate={validateForm}
         validateOnBlur={false}
+        validateOnChange={false}
       >
-        {({ values, handleChange, handleBlur, errors, touched }) => (
+        {({ values, handleChange, errors, touched }) => (
           <Form>
             <div className="form-group">
               <div className="form-field">
@@ -34,7 +37,6 @@ export const Signup = () => {
                   name="name"
                   placeholder="Enter your name"
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   value={values.name}
                   className="form-input"
                 />
@@ -49,7 +51,6 @@ export const Signup = () => {
                   name="email"
                   placeholder="Enter your email"
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   value={values.email}
                   className={touched.email && errors.email ? "has-error" : ""}
                 />
@@ -64,7 +65,6 @@ export const Signup = () => {
                   name="password"
                   placeholder="Enter your password"
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   value={values.password}
                   className={
                     touched.password && errors.password ? "has-error" : ""
@@ -87,6 +87,17 @@ export const Signup = () => {
               <button className="submit-button" type="submit">
                 Sign up
               </button>
+              <div className="separator">
+                <span>or</span>
+              </div>
+
+              <button className="google-login-button">
+                {" "}
+                Sign up with Google
+              </button>
+              <Link to="/login" className="alternate-action-link">
+                Already have an account? Login
+              </Link>
             </div>
           </Form>
         )}
