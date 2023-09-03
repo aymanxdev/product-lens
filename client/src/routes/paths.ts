@@ -1,5 +1,9 @@
 interface Paths {
-  [route: string]: string;
+  readonly HOME: string;
+  readonly NOT_FOUND: string;
+  readonly LOGIN: string;
+  readonly REGISTER: string;
+  readonly MY_DASHBOARD: string;
 }
 
 const paths: Paths = {
@@ -7,6 +11,7 @@ const paths: Paths = {
   NOT_FOUND: "*",
   LOGIN: "/login",
   REGISTER: "/register",
+  MY_DASHBOARD: "/my-dashboard",
 };
 
 export default paths;

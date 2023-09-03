@@ -1,48 +1,79 @@
-import { ReactNode, createContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import * as authService from "api/authService";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 interface AuthContextProps {
   isAuthenticated: boolean;
   loginUser: (email: string, password: string) => Promise<void>;
   logoutUser: () => Promise<void>;
   user: null | any;
+  tokenExpiry: number;
 }
 interface ChildrenProps {
   children: ReactNode;
 }
+interface User {
+  _id: string;
+  name: string;
+}
+
 export const AuthContext = createContext<AuthContextProps | undefined>(
   undefined,
 );
 
 export const AuthProvider = ({ children }: ChildrenProps) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useLocalStorage<User | null>("user", null);
+  const [tokenExpiry, setTokenExpiry] = useLocalStorage<number>(
+    "tokenExpiry",
+    0,
+  );
+  const intervalRef = useRef<any>(null);
+
+  const refreshTokenIfNeeded = useCallback(async () => {
+    const currentTime = Date.now();
+    if (user && tokenExpiry - currentTime < 30000) {
+      console.log("Refreshing token...");
+      await authService.refreshToken(user._id);
+    }
+  }, [tokenExpiry, user]);
+
+  useEffect(() => {
+    user
+      ? (intervalRef.current = setInterval(refreshTokenIfNeeded, 10000)) // Checking every 10 seconds
+      : clearInterval(intervalRef.current);
+
+    return () => clearInterval(intervalRef.current);
+  }, [refreshTokenIfNeeded, user]);
 
   const loginUser = async (email: string, password: string) => {
-    try {
-      const data = await authService.loginUser(email, password);
-      setUser(data.user); // Assuming your login response returns user data
-    } catch (error) {
-      console.error("Error logging in:", error);
-      throw error;
-    }
+    const data = await authService.loginUser(email, password);
+    setUser(data.user);
+    setTokenExpiry(data.expiresIn);
   };
 
   const logoutUser = async () => {
-    try {
-      if (user) {
-        const { _id } = user; // Destructure the _id property from the user object
-        await authService.logoutUser(_id); // Pass the _id property to the logoutUser method
-        setUser(null);
-      }
-    } catch (error) {
-      console.error("Error logging out:", error);
-      throw error;
+    if (user) {
+      await authService.logoutUser(user._id);
+      setUser(null);
+      setTokenExpiry(0);
     }
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, loginUser, logoutUser, user }}
+      value={{
+        isAuthenticated: !!user,
+        loginUser,
+        logoutUser,
+        user,
+        tokenExpiry,
+      }}
     >
       {children}
     </AuthContext.Provider>

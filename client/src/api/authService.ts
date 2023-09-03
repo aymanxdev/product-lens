@@ -12,35 +12,36 @@ const api = axios.create({
 
 // Login user
 export const loginUser = async (email: string, password: string) => {
-  try {
-    const response = await api.post("/accounts/login", { email, password });
-    console.log(response);
-
-    return response.data;
-  } catch (error: any) {
-    console.error("Error logging in:", error.response?.data);
-    throw error;
-  }
+  const response = await api.post("/accounts/login", { email, password });
+  return response.data;
 };
 
 // Logout user
 export const logoutUser = async (_id: string) => {
-  try {
-    const response = await api.post("/accounts/logout", { _id }); // Replace '/logout' with your endpoint path if different
-    return response.data;
-  } catch (error: any) {
-    console.error("Error logging out:", error.response?.data);
-    throw error;
-  }
+  const response = await api.post("/accounts/logout", { _id });
+  return response.data;
 };
 
 // Refresh access token
 export const refreshToken = async (_id: string) => {
-  try {
-    const response = await api.post("/accounts/refresh-token", { _id }); // Replace '/refresh-token' with your endpoint path if different
-    return response.data;
-  } catch (error: any) {
-    console.error("Error refreshing token:", error.response?.data);
-    throw error;
-  }
+  const response = await api.post("/accounts/refresh-token", { _id });
+  return response.data;
+};
+
+export const interceptorBeforeTokenExpiration = (
+  tokenExpiryTime: number,
+  _id: string,
+) => {
+  api.interceptors.request.use(
+    async (config) => {
+      const currentTime = Date.now();
+      if (tokenExpiryTime - currentTime < 30000) {
+        await refreshToken(_id);
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    },
+  );
 };
