@@ -24,10 +24,10 @@ export const Login = () => {
     }
   };
 
-  const onSubmitClick = (values: LoginFormValues) => {
-    console.log(values);
-    // handleLogin(values.email, values.password);
-  };
+  // const onSubmitClick = (values: LoginFormValues) => {
+  //   console.log(values);
+  //   // handleLogin(values.email, values.password);
+  // };
 
   return (
     <div className="app-entry-form-wrapper">
@@ -49,6 +49,7 @@ export const Login = () => {
         {({ handleChange, values, errors, touched }) => (
           <Form>
             <div className="form-group">
+              <div>email: guest4@email.com password: guest4Password</div>
               <div className="form-field">
                 <label htmlFor="email">Email</label>
                 <input

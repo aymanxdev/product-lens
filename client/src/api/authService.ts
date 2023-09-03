@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:5000";
 
 const api = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true, // To ensure cookies are sent and received cross-origin
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,7 +13,9 @@ const api = axios.create({
 // Login user
 export const loginUser = async (email: string, password: string) => {
   try {
-    const response = await api.post("/accounts/login", { email, password }); // Replace '/login' with your endpoint path if different
+    const response = await api.post("/accounts/login", { email, password });
+    console.log(response);
+
     return response.data;
   } catch (error: any) {
     console.error("Error logging in:", error.response?.data);
