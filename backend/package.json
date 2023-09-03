@@ -11,10 +11,14 @@
     "test": "NODE_ENV=test jest --watchAll --runInBand"
   },
   "jest": {
-    "testMatch": ["**/*.test.ts"],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "setupFiles": ["<rootDir>/jestEnvSetup.ts"]
+    "setupFiles": [
+      "<rootDir>/jestEnvSetup.ts"
+    ]
   },
   "keywords": [
     "product",
@@ -35,6 +39,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.3",
     "@types/jsonwebtoken": "^9.0.2",

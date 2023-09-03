@@ -2,14 +2,19 @@ import cookieParser from "cookie-parser";
 import express from "express";
 import userRoutes from "../routes/userRoutes";
 import ticketRoutes from "../routes/ticketRoutes";
-
+import cors from "cors";
 const createExpressApp = () => {
   const app = express();
 
   // Middleware
   app.use(express.json());
   app.use(cookieParser());
-
+  app.use(cors({
+    origin: "http://127.0.0.1:5173",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  }));
+  
   // Routes
   app.use("/accounts", userRoutes);
   app.use("/content", ticketRoutes);
