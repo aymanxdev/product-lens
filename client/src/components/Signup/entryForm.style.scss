@@ -1,0 +1,164 @@
+.app-entry-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  max-width: 500px;
+  margin: 0 auto;
+
+  .heading {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    & > h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+    & > p {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.1;
+      color: #888;
+    }
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  input,
+  .submit-button,
+  .error-message {
+    box-sizing: border-box;
+  }
+
+  input {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+    background-color: white;
+  }
+
+  .submit-button {
+    border: none;
+    border-radius: 5px;
+    padding: 0.8rem;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background: linear-gradient(-45deg, #c1e4f6, #c1f6e4);
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 1rem;
+    margin-top: 0.3rem;
+
+    &:hover {
+      background: linear-gradient(-45deg, #c1f6e4, #c1e4f6);
+    }
+  }
+
+  .error-message {
+    color: rgb(241, 113, 1);
+    background-color: rgb(247, 200, 158, 0.39);
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    width: 100%;
+  }
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.show-password-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.show-password-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 0.8rem;
+
+  input[type='checkbox'] {
+    flex: none; // This makes sure it doesn't grow or shrink
+    width: auto; // Allows the checkbox to be its natural width
+    margin-right: 0.5rem;
+  }
+}
+
+.separator {
+  position: relative;
+  text-align: center;
+  margin: 2rem 0;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: #888;
+    transform: translateY(-50%);
+  }
+
+  &:before {
+    left: 0;
+  }
+
+  &:after {
+    right: 0;
+  }
+
+  span {
+    background-color: white; // This gives the background color to "or" so that it covers the line
+    padding: 0 1rem;
+  }
+}
+
+.alternate-action-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: #007bff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.google-login-button {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  text-align: center;
+}
+.google-login-button {
+  background-color: #db4437;
+  color: white;
+  border: none;
+}
