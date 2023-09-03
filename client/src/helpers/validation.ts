@@ -6,11 +6,16 @@ interface IErrors {
   [key: string]: string;
 }
 
-export const validateForm = (values: IValues) => {
+type FormType = "login" | "signup";
+
+export const validateForm = (values: IValues, formType: FormType = "login") => {
   const errors: IErrors = {};
-  if (!values.name) {
+
+  // Only validate the 'name' field for signup
+  if (formType === "signup" && !values.name) {
     errors.name = "Name is required";
   }
+
   if (!values.email) {
     errors.email = "Email is required";
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {

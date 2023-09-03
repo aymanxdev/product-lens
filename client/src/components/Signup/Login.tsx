@@ -2,15 +2,32 @@ import { useState } from "react";
 import { Formik, Form } from "formik";
 import { validateForm } from "helpers/validation";
 import { Link } from "react-router-dom";
-
 import "./entryForm.style.scss";
+import { useAuth } from "hooks/useAuth";
 interface LoginFormValues {
-  name: string;
   email: string;
   password: string;
 }
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const { loginUser } = useAuth(); // Destructure the loginUser function
+
+  const handleLogin = async (email: string, password: string) => {
+    console.log("Logging in...");
+    try {
+      await loginUser(email, password);
+      // Redirect to a protected route or do something else
+    } catch (error) {
+      console.error("Error logging in:", error);
+      // Show error to user
+    }
+  };
+
+  const onSubmitClick = (values: LoginFormValues) => {
+    console.log(values);
+    // handleLogin(values.email, values.password);
+  };
 
   return (
     <div className="app-entry-form-wrapper">
@@ -22,13 +39,14 @@ export const Login = () => {
         </p>
       </div>
       <Formik
-        initialValues={{ name: "", email: "", password: "" }}
+        initialValues={{ email: "", password: "" }}
         onSubmit={(values: LoginFormValues) => {
           console.log(values);
+          handleLogin(values.email, values.password);
         }}
-        validate={validateForm}
+        validate={(values) => validateForm(values, "login")}
       >
-        {({ values, handleChange, errors, touched }) => (
+        {({ handleChange, values, errors, touched }) => (
           <Form>
             <div className="form-group">
               <div className="form-field">
@@ -72,7 +90,8 @@ export const Login = () => {
                 ) : null}
               </div>
               <button className="submit-button" type="submit">
-                Login
+                {" "}
+                Login{" "}
               </button>
               <div className="separator">
                 <span>or</span>
