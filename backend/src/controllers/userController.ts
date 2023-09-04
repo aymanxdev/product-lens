@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { IUserRequest } from "../types";
 import { Types } from "mongoose";
-import { deleteItemFrom } from "../utils";
+import { convertToMilliseconds, deleteItemFrom } from "../utils";
 import { withUserInRequest } from "../helpers/request";
 
 // Handle user registration
@@ -50,27 +50,29 @@ export const loginUser = async (req: Request, res: Response) => {
     const accessToken = jwt.sign(
       { _id, name, role },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: '15m' }
     );
 
     const refreshToken = jwt.sign(
       { _id, name, role },
       process.env.REFRESH_TOKEN_SECRET
     );
+    
     user.refreshToken = refreshToken;
 
     await user.save();
 
+    const expiresIn = '15m'; 
+    const expiresInMilliseconds = convertToMilliseconds(expiresIn);
     res.cookie("access_token", accessToken, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      sameSite: 'strict',
+      maxAge: expiresInMilliseconds
     });
 
-    res.status(200).json({ message: "Logged in successfully" });
+    res.status(200).json({ message: "Logged in successfully", user: { _id, name, role }, expiresIn: expiresInMilliseconds });
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Error logging in user", errorMessage: error });
+    res.status(500).json({ error: "[Login] Authentication failed" });
   }
 };
 
@@ -95,11 +97,18 @@ export const refreshToken = async (req: Request, res: Response) => {
     jwt.verify(user.refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
     const accessToken = generateAccessToken(user);
-    res.cookie("access_token", accessToken, {
+    const expiresIn = '1m'; 
+    const expiresInMilliseconds = convertToMilliseconds(expiresIn);
+    res.cookie("access_token", accessToken.token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      secure: process.env.NODE_ENV === 'production', // for HTTPS
+      sameSite: 'strict',
+      maxAge: accessToken.expiresIn
     });
-    res.status(200).json({ message: "Access token refreshed successfully" });
+    res.status(200).json({
+      message: "Access token refreshed successfully",
+      expiresIn: accessToken.expiresIn
+    });
   } catch (error) {
     res
       .status(500)
@@ -109,14 +118,13 @@ export const refreshToken = async (req: Request, res: Response) => {
 
 // Generate Access Token
 const generateAccessToken = (user: IUser) => {
-  if (!process.env.ACCESS_TOKEN_SECRET) {
-    throw new Error("JWT_SECRET must be defined to sign token");
-  }
-  return jwt.sign(
+  const expiresIn = '15m';
+  const token = jwt.sign(
     { _id: user._id, name: user.name, role: user.role },
-    process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "5m" }
+    process.env.ACCESS_TOKEN_SECRET!,
+    { expiresIn }
   );
+  return { token, expiresIn: convertToMilliseconds(expiresIn) };
 };
 
 // Handle user logout
