@@ -16,6 +16,22 @@ export const loginUser = async (email: string, password: string) => {
   return response.data;
 };
 
+// Register a new user
+export const registerUser = async (
+  name: string,
+  email: string,
+  password: string,
+  role?: string,
+) => {
+  const response = await api.post("/accounts/register", {
+    name,
+    email,
+    password,
+    role,
+  });
+  return response.data;
+};
+
 // Logout user
 export const logoutUser = async (_id: string) => {
   const response = await api.post("/accounts/logout", { _id });
