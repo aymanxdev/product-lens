@@ -47,12 +47,7 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
     const currentTime = Date.now(); // Keep this in milliseconds
     const timeUntilExpiry = tokenExpiry - currentTime;
 
-    console.log("currentTime", currentTime);
-    console.log("tokenExpiry", tokenExpiry);
-    console.log("timeUntilExpiry", timeUntilExpiry);
-
     if (user && timeUntilExpiry < TOKEN_REFRESH_THRESHOLD) {
-      console.log("Refreshing token...");
       await authService.refreshToken(user._id);
     }
   }, [tokenExpiry, user]);
@@ -62,7 +57,6 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
     0,
   );
 
-  console.log("timeUntilNextCheck", timeUntilNextCheck);
   useEffect(() => {
     user
       ? (intervalRef.current = setInterval(refreshTokenIfNeeded, 10000)) // Checking every 10 seconds
