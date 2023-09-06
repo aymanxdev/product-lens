@@ -52,10 +52,10 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
     }
   }, [tokenExpiry, user]);
 
-  const timeUntilNextCheck = Math.max(
-    tokenExpiry - Date.now() - TOKEN_REFRESH_THRESHOLD,
-    0,
-  );
+  // const timeUntilNextCheck = Math.max(
+  //   tokenExpiry - Date.now() - TOKEN_REFRESH_THRESHOLD,
+  //   0,
+  // );
 
   useEffect(() => {
     user
