@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
 
   useEffect(() => {
     user
-      ? (intervalRef.current = setInterval(refreshTokenIfNeeded, 13000)) // Checking every 10 seconds
+      ? (intervalRef.current = setInterval(refreshTokenIfNeeded, 13000))
       : clearInterval(intervalRef.current);
 
     return () => clearInterval(intervalRef.current);
