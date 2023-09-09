@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { validateForm } from "helpers/validation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./entryForm.style.scss";
 import { useAuth } from "hooks/useAuth";
+import paths from "routes/paths";
 interface LoginFormValues {
   email: string;
   password: string;
@@ -12,12 +13,13 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { loginUser } = useAuth(); // Destructure the loginUser function
+  const navigate = useNavigate();
 
-  const handleLogin = async (email: string, password: string) => {
+  const handleLogin = async (email: string, password: string): Promise<any> => {
     console.log("Logging in...");
     try {
       await loginUser(email, password);
-      // Redirect to a protected route or do something else
+      navigate(paths.MY_DASHBOARD);
     } catch (error) {
       console.error("Error logging in:", error);
       // Show error to user
