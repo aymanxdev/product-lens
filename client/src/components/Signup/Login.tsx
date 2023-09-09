@@ -12,11 +12,10 @@ interface LoginFormValues {
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const { loginUser } = useAuth(); // Destructure the loginUser function
+  const { loginUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (email: string, password: string): Promise<any> => {
-    console.log("Logging in...");
     try {
       await loginUser(email, password);
       navigate(paths.MY_DASHBOARD);
@@ -25,11 +24,6 @@ export const Login = () => {
       // Show error to user
     }
   };
-
-  // const onSubmitClick = (values: LoginFormValues) => {
-  //   console.log(values);
-  //   // handleLogin(values.email, values.password);
-  // };
 
   return (
     <div className="app-entry-form-wrapper">
@@ -43,7 +37,6 @@ export const Login = () => {
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values: LoginFormValues) => {
-          console.log(values);
           handleLogin(values.email, values.password);
         }}
         validate={(values) => validateForm(values, "login")}
