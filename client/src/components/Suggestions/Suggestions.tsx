@@ -1,15 +1,11 @@
-import React from "react";
+import { QuickWidgets } from "components/QuickWidgets/QuickWidgets";
 import "./suggestions.styles.scss";
 import { Button } from "common/Button/Button";
+
 const Suggestions = () => {
   return (
     <div className="suggestions-container">
-      <div className="left-widgets-wrapper">
-        here goes some widgets
-        <div className="feedback-widget"></div>
-        <div className="filters-widget"></div>
-        <div className="roadmap-widget"></div>
-      </div>
+      <QuickWidgets />
       <div className="suggestions-wrapper">
         here goes some suggestions
         <div className="suggestions-control-panel">
