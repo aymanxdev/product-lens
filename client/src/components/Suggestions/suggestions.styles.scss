@@ -1,0 +1,141 @@
+@import '../../assets/styles/base/variables.scss';
+
+.suggestions-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100vh;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  background-color: $default-gray;
+  gap: 2%;
+}
+.left-widgets-wrapper,
+.suggestions-wrapper {
+  > *:not(:last-child) {
+    margin-bottom: 2%;
+  }
+}
+
+.left-widgets-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1%;
+}
+.feedback-widget,
+.filters-widget,
+.roadmap-widget {
+  width: 255px;
+  height: 137px;
+  border-radius: 10px;
+}
+.feedback-widget {
+  background: radial-gradient(
+    128.88% 128.88% at 103.9% -10.39%,
+    #e84d70 0%,
+    #a337f6 53.09%,
+    #28a7ed 100%
+  );
+
+  mix-blend-mode: normal;
+  opacity: 0.82;
+}
+.filters-widget {
+  background-color: #ffffff;
+}
+.roadmap-widget {
+  background-color: #ffffff;
+}
+
+.suggestions-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1%;
+}
+
+.suggestions-control-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: #ffffff;
+  width: 825px;
+  height: 72px;
+  background: $purple-hue;
+  border-radius: 10px;
+}
+
+.add-feedback-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+.sort-filter-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  gap: 2%;
+  margin-left: 4%;
+
+  .bulb-icon {
+    background-image: url('../../assets/icons/bulb.svg');
+    color: white;
+    display: inline-block;
+    width: 24px; /* Set these to the size of your icon */
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+.suggestions-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 825px;
+  height: 600px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.empty-suggestions-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+  height: 100%;
+  width: 50%;
+}
+
+.empty-suggestions-icon {
+  background-image: url('../../assets/icons/empty-suggestions.svg');
+  display: inline-block;
+  width: 100px; /* Set these to the size of your icon */
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 7%;
+}
+.empty-suggestions-text {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 35px;
+  text-align: center;
+  letter-spacing: -0.333333px;
+  color: #3a4374;
+}
+.empty-suggestions-subtext {
+  margin-bottom: 7%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 23px;
+  text-align: center;
+  color: #647196;
+}
