@@ -1,26 +1,34 @@
 import { QuickWidgets } from "components/QuickWidgets/QuickWidgets";
 import "./suggestions.styles.scss";
 import { Button } from "common/Button/Button";
+import Dropdown from "common/Dropdown/Dropdown";
+
+const sortOptions = [
+  "Most Upvotes",
+  "Least Upvotes",
+  "Most Comments",
+  "Least Comments",
+];
 
 const Suggestions = () => {
+  const handleSortSelection = (selectedOption: string) => {
+    console.log("Selected Sort Option:", selectedOption);
+    // Implement your sorting logic here based on the selectedOption
+  };
+
   return (
     <div className="suggestions-container">
       <QuickWidgets />
       <div className="suggestions-wrapper">
         here goes some suggestions
         <div className="suggestions-control-panel">
-          <div className="sort-filter-wrapper">
+          <div className="filter-wrapper">
             <span className="bulb-icon"></span>
             <span className="suggestions-counter-text">3 Suggestions</span>
 
-            <div>
+            <div className="sort-filter-wrapper">
               <span className="sort-filter-text">Sort by: </span>
-              <select className="sort-filter-select">
-                <option value="most-upvotes">Most Upvotes</option>
-                <option value="least-upvotes">Least Upvotes</option>
-                <option value="most-comments">Most Comments</option>
-                <option value="least-comments">Least Comments</option>
-              </select>
+              <Dropdown options={sortOptions} onSelect={handleSortSelection} />
             </div>
           </div>
           <div className="add-feedback-wrapper">

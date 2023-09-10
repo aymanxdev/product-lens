@@ -41,12 +41,13 @@
 .suggestions-control-panel {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   color: #ffffff;
-  width: 825px;
+  width: 100%;
   height: 72px;
   background: $purple-hue;
   border-radius: 10px;
+  padding: 0 1rem;
 }
 
 .add-feedback-wrapper {
@@ -55,13 +56,12 @@
   align-items: center;
   width: 25%;
 }
-.sort-filter-wrapper {
+.filter-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 80%;
+  width: 70%;
   gap: 2%;
-  margin-left: 4%;
 
   .bulb-icon {
     background-image: url('../../assets/icons/bulb.svg');
@@ -74,15 +74,27 @@
   }
 }
 
+.sort-filter-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.sort-filter-text {
+  font-size: 14px;
+  color: #f2f4fe;
+  margin-right: 0.8rem;
+}
+
 .suggestions-board {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 825px;
+  width: 100%;
   height: 600px;
   background: #ffffff;
   border-radius: 10px;
+  padding: 0 1rem;
 }
 
 .empty-suggestions-wrapper {

@@ -1,8 +1,10 @@
 .widget-wrapper {
   display: flex;
   align-items: flex-start;
-  width: 255px;
-  height: 137px;
+  width: auto;
+  min-width: 255px;
+  height: auto;
+  min-height: 137px;
   border-radius: 10px;
   background-color: #ffffff;
   padding: 1rem;
