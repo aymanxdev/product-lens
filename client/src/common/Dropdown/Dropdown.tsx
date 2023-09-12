@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useRef, useState } from "react";
 import "./dropdown.styles.scss";
+import { useClickAway } from "react-use";
 
 interface DropdownProps {
   options: string[];
@@ -9,6 +10,7 @@ const Dropdown = (props: DropdownProps) => {
   const { options, onSelect } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
+  const dropdownRef = useRef(null);
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -16,8 +18,12 @@ const Dropdown = (props: DropdownProps) => {
     onSelect(option);
   };
 
+  useClickAway(dropdownRef, () => {
+    if (isOpen) setIsOpen(false);
+  });
+
   return (
-    <div className="dropdown">
+    <div className="dropdown" ref={dropdownRef}>
       <div className="dropdown-header" onClick={() => setIsOpen(!isOpen)}>
         {selectedOption || options[0]}
         <span className={`dropdown-arrow ${isOpen ? "open" : ""}`}></span>
