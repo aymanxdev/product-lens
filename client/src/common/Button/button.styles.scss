@@ -1,0 +1,48 @@
+.common-btn {
+  border: none;
+  border-radius: 10px;
+  font-style: normal;
+  line-height: 20px;
+
+  &.primary {
+    background-color: #ad1fea;
+    color: #f2f4fe;
+  }
+
+  &.secondary {
+    background-color: #4661e6;
+    color: #f2f4fe;
+  }
+  &.default {
+    background-color: rgb(55, 63, 104);
+    color: #f2f4fe;
+  }
+
+  &.danger {
+    background-color: #d73737;
+    color: #f2f4fe;
+  }
+
+  &.small {
+    font-size: 12px;
+    padding: 5px 10px;
+    font-weight: 500;
+  }
+
+  &.medium {
+    font-size: 14px;
+    padding: 10px 20px;
+    font-weight: 700;
+  }
+
+  &.large {
+    font-size: 20px;
+    padding: 15px 30px;
+    font-weight: 700;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: #c75af6;
+  }
+}

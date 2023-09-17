@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { validateForm } from "helpers/validation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./entryForm.style.scss";
+import { useAuth } from "hooks/useAuth";
+import paths from "routes/paths";
 interface SignupFormValues {
   name: string;
   email: string;
@@ -12,6 +14,18 @@ interface SignupFormValues {
 export const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const { registerUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignup = async (values: SignupFormValues): Promise<any> => {
+    try {
+      const { name, email, password } = values;
+      await registerUser(name, email, password);
+      navigate(paths.MY_DASHBOARD);
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+  };
   return (
     <div className="app-entry-form-wrapper">
       <div className="heading">
@@ -22,6 +36,7 @@ export const Signup = () => {
         initialValues={{ name: "", email: "", password: "" }}
         onSubmit={(values: SignupFormValues) => {
           console.log(values);
+          handleSignup(values);
         }}
         validate={validateForm}
         validateOnBlur={false}

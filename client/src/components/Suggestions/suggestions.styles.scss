@@ -1,0 +1,136 @@
+@import '../../assets/styles/base/variables.scss';
+
+.suggestions-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100vh;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  background-color: $default-gray;
+  gap: 2%;
+}
+.suggestions-wrapper {
+  > *:not(:last-child) {
+    margin-bottom: 2%;
+  }
+}
+
+.feedback-widget {
+  background: radial-gradient(
+    128.88% 128.88% at 103.9% -10.39%,
+    #e84d70 0%,
+    #a337f6 53.09%,
+    #28a7ed 100%
+  );
+  width: 255px;
+  height: 137px;
+  border-radius: 10px;
+  mix-blend-mode: normal;
+  opacity: 0.82;
+  padding: 1rem;
+}
+
+.suggestions-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1%;
+}
+
+.suggestions-control-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #ffffff;
+  width: 100%;
+  height: 72px;
+  background: $purple-hue;
+  border-radius: 10px;
+  padding: 0 1rem;
+}
+
+.add-feedback-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+.filter-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 70%;
+  gap: 2%;
+
+  .bulb-icon {
+    background-image: url('../../assets/icons/bulb.svg');
+    color: white;
+    display: inline-block;
+    width: 24px; /* Set these to the size of your icon */
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+.sort-filter-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.sort-filter-text {
+  font-size: 14px;
+  color: #f2f4fe;
+  margin-right: 0.8rem;
+}
+
+.suggestions-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 600px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0 1rem;
+}
+
+.empty-suggestions-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+  height: 100%;
+  width: 50%;
+}
+
+.empty-suggestions-icon {
+  background-image: url('../../assets/icons/empty-suggestions.svg');
+  display: inline-block;
+  width: 100px; /* Set these to the size of your icon */
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 7%;
+}
+.empty-suggestions-text {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 35px;
+  text-align: center;
+  letter-spacing: -0.333333px;
+  color: #3a4374;
+}
+.empty-suggestions-subtext {
+  margin-bottom: 7%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 23px;
+  text-align: center;
+  color: #647196;
+}

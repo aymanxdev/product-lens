@@ -8,8 +8,6 @@ interface PrivateRouteWrapperProps {
 
 function PrivateRouteWrapper({ children }: PrivateRouteWrapperProps) {
   const auth = useAuth();
-  console.log("auth.user");
-  console.log(auth.user);
   if (auth.user) {
     return children;
   } else {

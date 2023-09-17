@@ -1,0 +1,46 @@
+@import '../../assets/styles/base/variables.scss';
+
+.tag-item {
+  display: inline-block;
+  border-radius: 10px;
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  padding: 5px 10px;
+  &.primary {
+    background-color: $light-gray;
+    color: $primary-blue;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $blue-hover;
+    }
+    &.selected {
+      background-color: $primary-blue;
+      color: #ffffff;
+    }
+  }
+  &.secondary {
+    background-color: $light-purple;
+    color: $primary-purple;
+  }
+  &.default {
+    background-color: $default-gray;
+    color: $dark-gray;
+  }
+  &.danger {
+    background-color: $danger-hue;
+    color: $danger-hue;
+  }
+  &.warning {
+    background-color: $orange-hue;
+    color: $warning-orange;
+  }
+  &.success {
+    background-color: $success-hue;
+    color: $success-green;
+  }
+}

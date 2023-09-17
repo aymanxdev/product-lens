@@ -15,6 +15,7 @@ const RegistrationAndLoginPage = lazy(
 );
 const PageNotFound = lazy(() => import("../pages/NotFound"));
 const MyDashboard = lazy(() => import("../components/MyDashboard/MyDashboard"));
+const suggestions = lazy(() => import("../components/Suggestions/Suggestions"));
 
 const getRouteElement = (Component: ElementType, props?: any): ReactNode => {
   return (
@@ -39,6 +40,14 @@ const routes: Routes[] = [
     element: (
       <PrivateRouteWrapper>{getRouteElement(MyDashboard)}</PrivateRouteWrapper>
     ),
+  },
+  // {
+  //   path: paths.SUGGESTIONS,
+  //   element: (<PrivateRouteWrapper>{getRouteElement(suggestions)}</PrivateRouteWrapper>),
+  // },
+  {
+    path: paths.SUGGESTIONS,
+    element: getRouteElement(suggestions),
   },
 ];
 export const Router = createBrowserRouter(routes);

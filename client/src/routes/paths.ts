@@ -4,6 +4,7 @@ interface Paths {
   readonly LOGIN: string;
   readonly REGISTER: string;
   readonly MY_DASHBOARD: string;
+  readonly SUGGESTIONS: string;
 }
 
 const paths: Paths = {
@@ -12,6 +13,7 @@ const paths: Paths = {
   LOGIN: "/login",
   REGISTER: "/register",
   MY_DASHBOARD: "/my-dashboard",
+  SUGGESTIONS: "/suggestions",
 };
 
 export default paths;
