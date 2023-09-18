@@ -2,6 +2,7 @@ import { QuickWidgets } from "components/QuickWidgets/QuickWidgets";
 import "./suggestions.styles.scss";
 import { Button } from "common/Button/Button";
 import Dropdown from "common/Dropdown/Dropdown";
+import { TicketItem } from "components/Tickets/TicketItem";
 
 const sortOptions = [
   "Most Upvotes",
@@ -15,7 +16,7 @@ const Suggestions = () => {
     console.log("Selected Sort Option:", selectedOption);
     // Implement your sorting logic here based on the selectedOption
   };
-
+  const test = true;
   return (
     <div className="suggestions-container">
       <QuickWidgets />
@@ -37,21 +38,25 @@ const Suggestions = () => {
             </Button>
           </div>
         </div>
-        <div className="suggestions-board">
-          <div className="empty-suggestions-wrapper">
-            <span className="empty-suggestions-icon"></span>
-            <span className="empty-suggestions-text">
-              There is no feedback yet.
-            </span>
-            <span className="empty-suggestions-subtext">
-              Got a suggestion? Found a bug that needs to be squashed? We love
-              hearing about new ideas to improve our app.
-            </span>
-            <Button variant="primary" size="medium">
-              + Add Feedback
-            </Button>
+        {test ? (
+          <TicketItem />
+        ) : (
+          <div className="suggestions-board">
+            <div className="empty-suggestions-wrapper">
+              <span className="empty-suggestions-icon"></span>
+              <span className="empty-suggestions-text">
+                There is no feedback yet.
+              </span>
+              <span className="empty-suggestions-subtext">
+                Got a suggestion? Found a bug that needs to be squashed? We love
+                hearing about new ideas to improve our app.
+              </span>
+              <Button variant="primary" size="medium">
+                + Add Feedback
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -7,7 +7,10 @@ export const QuickWidgets = () => {
   return (
     <div className="left-widgets-wrapper">
       here goes some widgets
-      <div className="feedback-widget"></div>
+      <div className="feedback-widget">
+        <h3>John Doe</h3>
+        <p>Frontend Engineer</p>
+      </div>
       <Widget direction="row">
         <Tag colour="primary">
           <span className="tag-text">All</span>
