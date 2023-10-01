@@ -16,6 +16,7 @@ const RegistrationAndLoginPage = lazy(
 const PageNotFound = lazy(() => import("../pages/NotFound"));
 const MyDashboard = lazy(() => import("../components/MyDashboard/MyDashboard"));
 const suggestions = lazy(() => import("../components/Suggestions/Suggestions"));
+const ticketDetail = lazy(() => import("../components/Tickets/TicketDetail"));
 
 const getRouteElement = (Component: ElementType, props?: any): ReactNode => {
   return (
@@ -49,5 +50,6 @@ const routes: Routes[] = [
     path: paths.SUGGESTIONS,
     element: getRouteElement(suggestions),
   },
+  { path: paths.TICKET_DETAIL, element: getRouteElement(ticketDetail) },
 ];
 export const Router = createBrowserRouter(routes);
