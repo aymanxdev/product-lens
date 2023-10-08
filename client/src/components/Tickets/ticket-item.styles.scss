@@ -53,6 +53,7 @@
   display: flex;
   flex: 6;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: flex-start;
   padding: 1rem;
 
@@ -60,17 +61,14 @@
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
-    line-height: 15px;
     letter-spacing: -0.25px;
     color: #3a4374;
-    // margin-bottom: 0.5rem;
   }
 
   .ticket-item--content--description {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 20px;
     color: #647196;
   }
 }
