@@ -2,6 +2,7 @@ import React from "react";
 import { TicketItem } from "./TicketItem";
 import "./ticket-detail.styles.scss";
 import Comment from "../Comments/Comment";
+import AddComment from "components/Comments/AddComment";
 
 const mockComments = [
   {
@@ -48,6 +49,7 @@ const TicketDetail = () => {
           <Comment key={comment.id} comment={comment} />
         ))}
       </div>
+      <AddComment />
     </div>
   );
 };

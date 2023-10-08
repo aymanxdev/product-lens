@@ -25,7 +25,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
 
   const [replyActive, setReplyActive] = useState(false);
 
-  const onReplyClick = () => setReplyActive(!replyActive);
+  const onReplyClick = () => setReplyActive((prev) => !prev);
 
   return (
     <div className="comment-container">

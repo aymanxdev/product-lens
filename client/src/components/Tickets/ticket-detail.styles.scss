@@ -3,19 +3,20 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 825px;
+  margin: auto;
 }
 
 .ticket-detail-comments--container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 825px;
   border-radius: 10px;
   font-style: normal;
-  padding: 1rem;
+  padding: 2rem;
   background-color: #ffff;
   margin: 1rem 0;
+  width: 100%;
 }
 
 .ticket-detail-comments--header--title {
@@ -27,7 +28,7 @@
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.01563rem;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .ticket-detail-comment--item {

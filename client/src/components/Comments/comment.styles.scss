@@ -2,11 +2,12 @@
   display: flex;
   flex-direction: column;
   background-color: #ffff;
-  width: 825px;
   border-radius: 10px;
   font-style: normal;
-  padding: 1rem;
+  padding: 2rem;
   margin-top: 3%;
+  margin-bottom: 3%;
+  width: 100%;
 }
 
 .comment-container {
@@ -123,13 +124,13 @@
   margin-top: 20px;
 }
 
-textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-}
+// textarea {
+//   width: 100%;
+//   padding: 10px;
+//   border-radius: 5px;
+//   margin-bottom: 10px;
+//   border: 1px solid #ccc;
+// }
 
 button {
   background-color: #007bff;
@@ -142,4 +143,108 @@ button {
 
 button:disabled {
   background-color: #ccc;
+}
+
+.reply-input-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.reply-input {
+  border: none;
+  outline: none;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f2f4fe;
+  color: #3a4374;
+  height: 70px;
+  width: 70%;
+  font-size: 16px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.reply-input:hover,
+.reply-input:focus {
+  cursor: pointer;
+  border: 1px solid #4661e6;
+  height: 68px;
+}
+
+.reply-input.alert,
+.reply-input.alert:hover,
+.reply-input.alert:focus {
+  border: 1px solid red;
+  height: 68px;
+}
+
+.alert-text {
+  color: red;
+}
+
+.reply-alert {
+  position: absolute;
+  top: 120px;
+  left: 5px;
+}
+
+/* Show/hide elements */
+.hidden {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.post-reply-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  width: 139px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: #ad1fea;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+}
+
+.add-comment-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #ffff;
+  border-radius: 10px;
+  padding: 2rem;
+  height: 250px;
+  width: 100%;
+}
+
+.add-comment-header {
+  font-size: 18px;
+  line-height: 26px;
+  color: #373f68;
+}
+
+.add-comment-input {
+  border: none;
+  outline: none;
+  padding: 20px 20px;
+  border-radius: 10px;
+  background-color: #f2f4fe;
+  color: #3a4374;
+  height: 70px;
+}
+
+.add-comment-bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

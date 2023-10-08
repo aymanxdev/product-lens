@@ -41,7 +41,7 @@ const ReplyInput: React.FC<ReplyInputProps> = ({ onReplyClick }) => {
         value={userReply}
         onChange={userReplyChange}
       />
-      <p className={alert ? "alert-text" : "hidden"}>
+      <p className={alert ? "alert-text reply-alert" : "hidden"}>
         Can't leave any fields empty
       </p>
       <input type="submit" className="post-reply-button" value="Post Reply" />
