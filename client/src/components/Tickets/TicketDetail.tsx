@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { TicketItem } from "./TicketItem";
 import "./ticket-detail.styles.scss";
 import Comment from "../Comments/Comment";
 import AddComment from "components/Comments/AddComment";
+// import BreadcrumbContext from "contexts/AppBreadcrumbs/BreadcrumbContext";
 
 const mockComments = [
   {
@@ -39,6 +40,18 @@ const mockComments = [
 ];
 
 const TicketDetail = () => {
+  // const context = useContext(BreadcrumbContext);
+
+  // if (!context) {
+  //   throw new Error('SomePage must be used within a BreadcrumbProvider');
+  // }
+
+  // const { addBreadcrumb } = context;
+
+  // useEffect(() => {
+  //   addBreadcrumb('Some Page');
+  // }, [addBreadcrumb]);
+
   return (
     <div className="ticket-detail--container">
       <div className="breadcrumbs">breadcrumb</div>
