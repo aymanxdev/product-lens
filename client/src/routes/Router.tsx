@@ -17,6 +17,7 @@ const PageNotFound = lazy(() => import("../pages/NotFound"));
 const MyDashboard = lazy(() => import("../components/MyDashboard/MyDashboard"));
 const suggestions = lazy(() => import("../components/Suggestions/Suggestions"));
 const ticketDetail = lazy(() => import("../components/Tickets/TicketDetail"));
+const addTicket = lazy(() => import("../components/Tickets/AddTicket"));
 
 const getRouteElement = (Component: ElementType, props?: any): ReactNode => {
   return (
@@ -51,5 +52,6 @@ const routes: Routes[] = [
     element: getRouteElement(suggestions),
   },
   { path: paths.TICKET_DETAIL, element: getRouteElement(ticketDetail) },
+  { path: paths.ADD_TICKET, element: getRouteElement(addTicket) },
 ];
 export const Router = createBrowserRouter(routes);

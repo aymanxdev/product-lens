@@ -6,6 +6,7 @@ interface Paths {
   readonly MY_DASHBOARD: string;
   readonly SUGGESTIONS: string;
   readonly TICKET_DETAIL: string;
+  readonly ADD_TICKET: string;
 }
 
 const paths: Paths = {
@@ -16,6 +17,7 @@ const paths: Paths = {
   MY_DASHBOARD: "/my-dashboard",
   SUGGESTIONS: "/suggestions",
   TICKET_DETAIL: "/ticket-detail/:id",
+  ADD_TICKET: "/add-ticket",
 };
 
 export default paths;

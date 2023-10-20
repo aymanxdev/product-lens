@@ -1,6 +1,6 @@
 import { ReactComponent as UpVoteArrow } from "../../assets/icons/dropdown-arrow.svg";
 import { ReactComponent as CommentIcon } from "../../assets/icons/comment.svg";
-import "./ticket-item.styles.scss";
+import "./ticket.styles.scss";
 import { Tag } from "common/Tag/Tag";
 
 export const TicketItem = () => {

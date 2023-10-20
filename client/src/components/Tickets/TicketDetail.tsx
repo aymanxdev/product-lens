@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { TicketItem } from "./TicketItem";
-import "./ticket-detail.styles.scss";
+import "./ticket.styles.scss";
 import Comment from "../Comments/Comment";
 import AddComment from "components/Comments/AddComment";
 // import BreadcrumbContext from "contexts/AppBreadcrumbs/BreadcrumbContext";
