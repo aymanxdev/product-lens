@@ -207,7 +207,6 @@
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  /* Changed from justify-content: space-between; to justify-content: flex-start; */
   justify-content: flex-start;
 }
 
@@ -224,10 +223,13 @@
 }
 
 .add-ticket-form-container {
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  padding-left: 20px; // Added padding to the left
+  padding-right: 20px; // Added padding to the right
+  margin-top: 20px; // Added margin to the top for spacing
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
 }
 
 .add-ticket-form-label {
@@ -235,49 +237,50 @@
   line-height: 20px;
   letter-spacing: -0.2;
   font-weight: bold;
+  margin-bottom: 0.5rem; // Added margin for spacing
 }
 
-.add-ticket-form-input {
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  height: 48px;
-  background-color: #f2f4fe;
-  color: #647196;
-  font-family: 'Jost', sans-serif;
-  font-size: 16px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0 20px;
-
-  &::placeholder {
-    color: #647196;
-    font-family: 'Jost', sans-serif;
-    font-size: 16px;
-  }
-
-  &:focus {
-    cursor: pointer;
-    border: 1px solid #4661e6;
-    height: 46px;
-  }
-
-  &:hover {
-    cursor: pointer;
-    border: 1px solid #4661e6;
-    height: 46px;
-  }
+.ticket-dropdown-wrapper,
+.add-ticket-form-input,
+textarea.add-ticket-form-input {
+  // ... rest of your styles
+  margin-bottom: 0.5rem; // Added margin for spacing
 }
 
-/* Category Dropdown */
 .ticket-dropdown-wrapper {
   position: relative;
   user-select: none;
   width: 100%;
+  border: 1px solid #ccc; // Border for dropdown wrapper
+  border-radius: 10px; // Matched border radius to input field
+  background-color: #f2f4fe; // Background color matching input field
 }
 
 .ticket-dropdown {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  width: 100%; // Ensures the dropdown takes the full width of the wrapper
+  border: none; // Removes default border
+  background-color: transparent; // Removes default background
+  padding: 0 20px; // Matched padding to input field
+  font-family: 'Jost', sans-serif; // Matched font family to input field
+  font-size: 16px; // Matched font size to input field
+  color: #647196; // Matched color to input field
+  appearance: none; // Removes default browser styling
+  outline: none; // Removes focus outline
+}
+
+// Optional: Add a custom arrow icon for the dropdown
+.ticket-dropdown-wrapper::after {
+  content: '▼';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; // Ensures clicks pass through to the dropdown
+}
+
+// ... rest of your existing scss
+
+.alert {
+  color: red;
+  font-size: 12px;
 }

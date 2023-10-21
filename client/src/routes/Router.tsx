@@ -17,7 +17,7 @@ const PageNotFound = lazy(() => import("../pages/NotFound"));
 const MyDashboard = lazy(() => import("../components/MyDashboard/MyDashboard"));
 const suggestions = lazy(() => import("../components/Suggestions/Suggestions"));
 const ticketDetail = lazy(() => import("../components/Tickets/TicketDetail"));
-const addTicket = lazy(() => import("../components/Tickets/AddTicket"));
+const addTicket = lazy(() => import("../components/Tickets/CreateTicket"));
 
 const getRouteElement = (Component: ElementType, props?: any): ReactNode => {
   return (
