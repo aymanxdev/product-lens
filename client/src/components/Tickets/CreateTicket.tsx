@@ -1,8 +1,38 @@
 import React, { useState } from "react";
-import "./ticket.styles.scss";
-
+import "./create-ticket.styles.scss";
 const CreateTicket = () => {
   const [activeCategory, setActiveCategory] = useState("Feature");
+  const [title, setTitle] = useState("");
+  const [details, setDetails] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [detailsError, setDetailsError] = useState(false);
+
+  const handleTitleChange = (e: any) => {
+    setTitle(e.target.value);
+    if (e.target.value.trim()) setTitleError(false);
+  };
+
+  const handleDetailsChange = (e: any) => {
+    setDetails(e.target.value);
+    if (e.target.value.trim()) setDetailsError(false);
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    let isValid = true;
+    if (!title.trim()) {
+      setTitleError(true);
+      isValid = false;
+    }
+    if (!details.trim()) {
+      setDetailsError(true);
+      isValid = false;
+    }
+    if (isValid) {
+      // Placeholder for API call
+      console.log("Form Data:", { title, activeCategory, details });
+    }
+  };
 
   return (
     <div className="add-ticket-main-container">
@@ -34,50 +64,55 @@ const CreateTicket = () => {
           </svg>
         </div>
         <h1 className="add-ticket-header">Create New Ticket</h1>
-        <div className="add-ticket-form-container">
-          <div className="form-group">
-            <label className="add-ticket-form-label">Ticket Title</label>
-            <input type="text" className="add-ticket-form-input" />
-            <div className="alert">This field is required</div>{" "}
-            {/* Alert message */}
+        <form onSubmit={handleSubmit} className="add-ticket-form-container">
+          <label className="add-ticket-form-label">Ticket Title</label>
+          <p>Add a short, descriptive headline</p>
+          <input
+            type="text"
+            className="add-ticket-form-input"
+            value={title}
+            onChange={handleTitleChange}
+          />
+          {titleError && <div className="alert">This field is required</div>}
+          <label className="add-ticket-form-label">Category</label>
+          <p>Choose a category for your ticket</p>
+          <div className="ticket-dropdown-wrapper">
+            <select
+              className="ticket-dropdown"
+              value={activeCategory}
+              onChange={(e) => setActiveCategory(e.target.value)}
+            >
+              <option value="Feature">Feature</option>
+              <option value="UI">UI</option>
+              <option value="UX">UX</option>
+              <option value="Enhancement">Enhancement</option>
+              <option value="Bug">Bug</option>
+            </select>
           </div>
-          <div className="form-group">
-            <label className="add-ticket-form-label">Category</label>
-            <p>Choose a category for your feedback</p>
-            <div className="ticket-dropdown-wrapper">
-              <select
-                className="ticket-dropdown"
-                value={activeCategory}
-                onChange={(e) => setActiveCategory(e.target.value)}
-              >
-                <option value="Feature">Feature</option>
-                <option value="UI">UI</option>
-                <option value="UX">UX</option>
-                <option value="Enhancement">Enhancement</option>
-                <option value="Bug">Bug</option>
-              </select>
-            </div>
+          <label className="add-ticket-form-label">Details</label>
+          <p>
+            Include any specific comments on what should be improved, added,
+            etc.
+          </p>
+
+          <textarea
+            className="add-ticket-form-input text-area"
+            value={details}
+            onChange={handleDetailsChange}
+          ></textarea>
+          {detailsError && <div className="alert">This field is required</div>}
+          <div className="add-ticket-form-btn-wrapper">
+            <button type="button" className="add-ticket-form-btn">
+              Cancel
+            </button>
+            <button type="submit" className="add-ticket-form-btn">
+              Add Feedback
+            </button>
           </div>
-          <div className="form-group">
-            <label className="add-ticket-form-label">Details</label>
-            <textarea className="add-ticket-form-input"></textarea>{" "}
-            {/* Details input */}
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   );
 };
 
 export default CreateTicket;
-
-// const Checkmark = () => (
-//   <svg xmlns="http://www.w3.org/2000/svg" width="13" height="11">
-//     <path
-//       fill="none"
-//       stroke="#AD1FEA"
-//       strokeWidth="2"
-//       d="M1 5.233L4.522 9 12 1"
-//     />
-//   </svg>
-// );
