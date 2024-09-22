@@ -86,3 +86,25 @@
 
   color: #647196;
 }
+
+.feedback-widget {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: self-start;
+  background: radial-gradient(
+    128.88% 128.88% at 103.9% -10.39%,
+    #e84d70 0%,
+    #a337f6 53.09%,
+    #28a7ed 100%
+  );
+
+  width: 255px;
+  height: 137px;
+  border-radius: 10px;
+  mix-blend-mode: normal;
+  opacity: 0.82;
+  padding: 1rem;
+  color: white;
+  line-height: 0%;
+}

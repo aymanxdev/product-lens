@@ -7,28 +7,12 @@
   height: 100vh;
   padding: 1rem;
   margin-bottom: 2rem;
-  background-color: $default-gray;
   gap: 2%;
 }
 .suggestions-wrapper {
   > *:not(:last-child) {
     margin-bottom: 2%;
   }
-}
-
-.feedback-widget {
-  background: radial-gradient(
-    128.88% 128.88% at 103.9% -10.39%,
-    #e84d70 0%,
-    #a337f6 53.09%,
-    #28a7ed 100%
-  );
-  width: 255px;
-  height: 137px;
-  border-radius: 10px;
-  mix-blend-mode: normal;
-  opacity: 0.82;
-  padding: 1rem;
 }
 
 .suggestions-wrapper {
@@ -43,7 +27,6 @@
   flex-direction: row;
   justify-content: space-between;
   color: #ffffff;
-  width: 100%;
   height: 72px;
   background: $purple-hue;
   border-radius: 10px;

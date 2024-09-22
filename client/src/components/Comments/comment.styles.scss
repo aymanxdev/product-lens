@@ -1,0 +1,250 @@
+.comment-section-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffff;
+  border-radius: 10px;
+  font-style: normal;
+  padding: 2rem;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  width: 100%;
+}
+
+.comment-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-bottom: 32px;
+  padding-left: 70px;
+}
+.profile-picture-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.profile-picture {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.nesting-line {
+  position: absolute;
+  top: 65px;
+  left: 17.5px;
+  width: 1px;
+  height: calc(100% - 175px);
+  background-color: #ccc;
+
+  & .hidden {
+    display: none;
+  }
+}
+.comment-parent {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 17px;
+}
+.comment-author-name {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2;
+  font-weight: 700;
+
+  & > h4 {
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+}
+
+.comment-name {
+  color: #333;
+}
+
+.username-and-reply {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reply-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-left: 70px;
+}
+
+.comment-username {
+  color: #666;
+  font-size: 15px;
+  line-height: 22px;
+
+  & > p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+}
+
+.reply-button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #4661e6;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.reply-button:hover {
+  text-decoration: underline;
+}
+
+.comment-text {
+  color: #666;
+}
+
+.replying-to {
+  font-size: 15px;
+  line-height: 22px;
+  color: #ad1fea;
+}
+
+.reply-input-container {
+  margin-top: 20px;
+}
+
+// textarea {
+//   width: 100%;
+//   padding: 10px;
+//   border-radius: 5px;
+//   margin-bottom: 10px;
+//   border: 1px solid #ccc;
+// }
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+.reply-input-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.reply-input {
+  border: none;
+  outline: none;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f2f4fe;
+  color: #3a4374;
+  height: 70px;
+  width: 70%;
+  font-size: 16px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.reply-input:hover,
+.reply-input:focus {
+  cursor: pointer;
+  border: 1px solid #4661e6;
+  height: 68px;
+}
+
+.reply-input.alert,
+.reply-input.alert:hover,
+.reply-input.alert:focus {
+  border: 1px solid red;
+  height: 68px;
+}
+
+.alert-text {
+  color: red;
+}
+
+.reply-alert {
+  position: absolute;
+  top: 120px;
+  left: 5px;
+}
+
+/* Show/hide elements */
+.hidden {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.post-reply-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  width: 139px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: #ad1fea;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+}
+
+.add-comment-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #ffff;
+  border-radius: 10px;
+  padding: 2rem;
+  height: 250px;
+  width: 100%;
+}
+
+.add-comment-header {
+  font-size: 18px;
+  line-height: 26px;
+  color: #373f68;
+}
+
+.add-comment-input {
+  border: none;
+  outline: none;
+  padding: 20px 20px;
+  border-radius: 10px;
+  background-color: #f2f4fe;
+  color: #3a4374;
+  height: 70px;
+}
+
+.add-comment-bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
