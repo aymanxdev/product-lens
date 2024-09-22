@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./create-ticket.styles.scss";
+import { api } from "api/api";
+
 const CreateTicket = () => {
   const [activeCategory, setActiveCategory] = useState("Feature");
   const [title, setTitle] = useState("");
@@ -17,7 +19,7 @@ const CreateTicket = () => {
     if (e.target.value.trim()) setDetailsError(false);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     let isValid = true;
     if (!title.trim()) {
@@ -31,6 +33,16 @@ const CreateTicket = () => {
     if (isValid) {
       // Placeholder for API call
       console.log("Form Data:", { title, activeCategory, details });
+      const response = await api.post("/tickets", {
+        title,
+        description: details,
+        category: activeCategory,
+      });
+      // Reset form
+      setTitle("");
+      setDetails("");
+      setActiveCategory("Feature");
+      return response.data;
     }
   };
 
@@ -94,7 +106,6 @@ const CreateTicket = () => {
             Include any specific comments on what should be improved, added,
             etc.
           </p>
-
           <textarea
             className="add-ticket-form-input text-area"
             value={details}

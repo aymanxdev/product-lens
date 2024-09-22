@@ -1,14 +1,4 @@
-import axios from "axios";
-
-const BASE_URL = "http://localhost:5000";
-
-const api = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import { api } from "./api";
 
 // Login user
 export const loginUser = async (email: string, password: string) => {
